@@ -4,15 +4,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
-
-export function LogoutButton() {
-  const router = useRouter()
-  async function logout() {
-    await createClient().auth.signOut()
-    router.push('/')
-  }
-  return <button className="btn btn-outline" onClick={logout}>Se déconnecter</button>
-}
+import { LogoutButton } from './LogoutButton'
 
 interface Order {
   id: string

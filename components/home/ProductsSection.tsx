@@ -34,7 +34,7 @@ export function ProductsSection() {
   const [featured, setFeatured] = useState<Product[]>(FALLBACK)
 
   useEffect(() => {
-    fetch('/api/products?featured=true&limit=4')
+    fetch('/api/products?limit=4')
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (data && data.length > 0) setFeatured(data.map(transformDbProduct))
