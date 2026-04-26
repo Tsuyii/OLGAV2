@@ -410,6 +410,12 @@ footer { background: var(--charcoal); padding: 4.5rem 3.5rem 2.5rem; }
 .about-value-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand); margin-bottom: 0.5rem; }
 .about-value-desc { font-size: 0.8rem; color: rgba(196,168,130,0.65); line-height: 1.7; }
 
+/* LOOKBOOK + ABOUT — classes to enable responsive overrides */
+.lookbook-bar { padding: 3.5rem 3.5rem 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ivory-deep); padding-bottom: 1.5rem; }
+.lookbook-cta { text-align: center; padding: 5rem 3.5rem; border-top: 1px solid var(--ivory-deep); }
+.about-mission { padding: 6rem 3.5rem; max-width: 800px; margin: 0 auto; text-align: center; }
+.editorial-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+
 /* KEYFRAMES */
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { to { opacity: 1; } }
@@ -447,23 +453,53 @@ footer { background: var(--charcoal); padding: 4.5rem 3.5rem 2.5rem; }
   .lookbook-editorial { grid-template-columns: 1fr; }
   .about-timeline { grid-template-columns: 1fr; }
   .about-values { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+  .editorial-strip { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   :root { --section-pad: 4rem 1.5rem; }
-  .nav { padding: 0 1.25rem; }
+  /* Nav — keep icons visible, hide text links only */
+  .nav { display: flex; align-items: center; padding: 0 1.25rem; position: relative; }
   .nav-left { display: none; }
-  .nav-right { display: none; }
+  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.4rem; letter-spacing: 0.35em; }
+  .nav-right { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
+  .nav-text-item { display: none; }
   .nav-burger { display: flex; }
-  .nav { grid-template-columns: auto 1fr auto; }
-  .nav-logo { font-size: 1.4rem; letter-spacing: 0.35em; }
+  /* Footer */
+  footer { padding: 3rem 1.5rem 2rem; }
   .foot-grid { grid-template-columns: 1fr; gap: 2rem; }
   .foot-bottom { flex-direction: column; text-align: center; }
+  /* Sections */
   .sec-head { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   .hero-left { padding: 3rem 1.5rem 3.5rem; }
   .breadcrumb { padding: 1rem 1.5rem; }
   .cats { padding: 0 1rem; }
   .cat-item { padding: 1.5rem 1.4rem; }
+  .page-hero { padding: 3.5rem 1.5rem 3rem; }
+  .about-hero { padding: 4.5rem 1.5rem 3.5rem; }
+  .banner-content { padding: 2.5rem 1.5rem; }
+  .ed-text { padding: 3.5rem 1.5rem; }
+  .story-text { padding: 3.5rem 1.5rem; }
+  .collection-products { padding: 1.5rem; }
+  .cart-layout { padding: 2rem 1.5rem; gap: 2rem; }
+  /* Lookbook + About classes */
+  .lookbook-bar { padding: 2rem 1.5rem 1rem; }
+  .lookbook-cta { padding: 3.5rem 1.5rem; }
+  .about-mission { padding: 4rem 1.5rem; }
 }
 @media (max-width: 480px) {
   .pgrid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  /* Newsletter — stack input and button */
+  .nl-row { flex-direction: column; }
+  .nl-input { border-right: 1px solid var(--ivory-deep); }
+  .nl-btn { width: 100%; justify-content: center; }
+  /* Cart item — collapse to 2-col on tiny screens */
+  .cart-item { grid-template-columns: 80px 1fr; gap: 1rem; }
+  .cart-item-actions { grid-column: 2; }
+  /* Lookbook — single column */
+  .lookbook-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+  /* Product page — stack action buttons */
+  .product-actions { flex-direction: column; }
+  .btn-add-cart { justify-content: center; }
+  /* Editorial strip — 2 cols max */
+  .editorial-strip { grid-template-columns: repeat(2, 1fr); }
 }

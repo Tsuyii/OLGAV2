@@ -108,7 +108,7 @@ export default function LookbookPage() {
       </div>
 
       {/* Season label */}
-      <div style={{ padding: '3.5rem 3.5rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--ivory-deep)', paddingBottom: '1.5rem' }}>
+      <div className="lookbook-bar">
         <span className="sec-over">Collection SS26 — {LOOKS.length} looks</span>
         <Link href="/collections" className="sec-link">Voir les produits →</Link>
       </div>
@@ -161,7 +161,7 @@ export default function LookbookPage() {
       </div>
 
       {/* CTA */}
-      <div style={{ textAlign: 'center', padding: '5rem 3.5rem', borderTop: '1px solid var(--ivory-deep)' }}>
+      <div className="lookbook-cta">
         <div className="sec-over" style={{ marginBottom: '1rem' }}>Toute la collection</div>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 4rem)', fontWeight: 300, color: 'var(--charcoal)', marginBottom: '2rem' }}>
           Trouvez votre <em>pièce signature</em>

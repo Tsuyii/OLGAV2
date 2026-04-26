@@ -79,7 +79,7 @@ export default function AProposPage() {
       </div>
 
       {/* Editorial image strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0 }}>
+      <div className="editorial-strip">
         {[
           'https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_16_6dccc60d-59d2-4e62-9a8d-e9b15aa0a023.png?v=1761642435&width=600',
           'https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-24_9a026f90-531b-4d9f-9b6c-825759612386.jpg?v=1773329709&width=600',
@@ -93,7 +93,7 @@ export default function AProposPage() {
       </div>
 
       {/* Mission statement */}
-      <div style={{ padding: '6rem 3.5rem', maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
+      <div className="about-mission">
         <div className="sec-over" style={{ marginBottom: '1.5rem' }}>Notre engagement</div>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.2rem, 4vw, 4rem)', fontWeight: 300, color: 'var(--charcoal)', lineHeight: 1.15, marginBottom: '2rem' }}>
           La mode marocaine mérite<br /><em>d&apos;être célébrée</em>

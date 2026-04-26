@@ -34,8 +34,8 @@ export function Nav() {
         <Link className="nav-logo" href="/">Olga</Link>
 
         <ul className="nav-right">
-          <li><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>
-          <li><Link href="/promotions">Promotions</Link></li>
+          <li className="nav-text-item"><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>
+          <li className="nav-text-item"><Link href="/promotions">Promotions</Link></li>
           <li>
             <Link href="/compte" className="nav-icon-btn" aria-label="Mon compte">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
