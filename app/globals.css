@@ -463,9 +463,8 @@ footer { background: var(--charcoal); padding: 4.5rem 3.5rem 2.5rem; }
   /* Nav — keep icons visible, hide text links only */
   .nav { display: flex; align-items: center; padding: 0 1.25rem; position: relative; }
   .nav-left { display: none; }
-  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.4rem; letter-spacing: 0.35em; gap: 0.5rem; }
-  .nav-logo-wordmark { display: none; }
-  .nav-logo-img { width: 30px; height: 30px; }
+  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.2rem; letter-spacing: 0.3em; gap: 0.6rem; }
+  .nav-logo-img { width: 46px; height: 46px; }
   .nav-right { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
   .nav-text-item { display: none; }
   .nav-burger { display: flex; }
