@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collections — OLGA DSN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    .page-hero {
+      background: var(--espresso);
+      padding: 5rem 3.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .page-hero-over { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terra-light); }
+    .page-hero-h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--sand-light); line-height: 1.05; }
+    .page-hero-h1 em { font-style: italic; color: var(--terra-light); }
+    .page-hero-p { font-size: 0.85rem; color: rgba(196,168,130,0.5); max-width: 420px; line-height: 1.7; }
+
+    /* FILTERS */
+    .collection-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 0;
+      min-height: 80vh;
+    }
+    .filters {
+      background: var(--ivory-warm);
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--ivory-deep);
+      position: sticky;
+      top: var(--nav-h);
+      height: fit-content;
+    }
+    .filter-title { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 1.2rem; margin-top: 1.5rem; }
+    .filter-title:first-child { margin-top: 0; }
+    .filter-tags { display: flex; flex-direction: column; gap: 0.4rem; }
+    .filter-tag {
+      font-size: 0.78rem;
+      color: var(--warm-gray);
+      padding: 5px 0;
+      cursor: pointer;
+      transition: color 0.2s, padding-left 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .filter-tag:hover { color: var(--charcoal); padding-left: 4px; }
+    .filter-tag.active { color: var(--charcoal); font-weight: 400; }
+    .filter-tag.active::before { content: '—'; margin-right: 6px; color: var(--terra); font-size: 0.7rem; }
+    .filter-count { font-size: 0.65rem; color: var(--warm-gray); }
+    .filter-divider { border: none; border-top: 1px solid var(--ivory-deep); margin: 1.5rem 0 0; }
+
+    /* PRODUCTS GRID */
+    .collection-products {
+      padding: 2.5rem 3rem;
+    }
+    .collection-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--ivory-deep);
+    }
+    .col-count { font-size: 0.78rem; color: var(--warm-gray); }
+    .sort-select {
+      background: transparent;
+      border: 1px solid var(--ivory-deep);
+      padding: 8px 14px;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--charcoal);
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Category tabs */
+    .cat-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--ivory-deep);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-tabs::-webkit-scrollbar { display: none; }
+    .cat-tab {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.25s;
+    }
+    .cat-tab:hover { color: var(--charcoal); }
+    .cat-tab.active { color: var(--charcoal); border-bottom-color: var(--terra); }
+
+    .pgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .pcard { cursor: pointer; }
+    .pcard-img {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 0.9rem;
+      background: var(--ivory-warm);
+    }
+    .pcard-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .pcard:hover .pcard-img img { transform: scale(1.05); }
+    .pbadge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--espresso); color: var(--sand-light); font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 9px; }
+    .pbadge.new { background: var(--terra); }
+    .pbadge.sale { background: var(--sage); color: var(--white); }
+    .pwish { position: absolute; top: 0.8rem; right: 0.8rem; width: 30px; height: 30px; background: rgba(247,243,238,0.9); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; opacity: 0; transition: opacity 0.25s; }
+    .pcard:hover .pwish { opacity: 1; }
+    .padd { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(61,46,36,0.92); color: var(--sand-light); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; text-align: center; padding: 12px; transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+    .pcard:hover .padd { transform: translateY(0); }
+    .pcat { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 4px; }
+    .pname { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; margin-bottom: 5px; }
+    .pprice { font-size: 0.83rem; }
+    .pprice-sale { color: var(--terra); }
+    .pprice-orig { color: var(--warm-gray); text-decoration: line-through; font-size: 0.74rem; margin-left: 5px; }
+
+    /* Load more */
+    .load-more { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--ivory-deep); }
+
+    @media (max-width: 900px) {
+      .collection-layout { grid-template-columns: 1fr; }
+      .filters { position: static; display: flex; flex-wrap: wrap; gap: 1rem; border-right: none; border-bottom: 1px solid var(--ivory-deep); padding: 1.5rem; }
+      .filter-title { width: 100%; margin: 0; }
+      .filter-tags { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; }
+      .filter-tag { background: var(--ivory); padding: 5px 12px; font-size: 0.72rem; }
+      .pgrid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .collection-products { padding: 2rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .pgrid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announce"><span class="announce-track"><span>Livraison offerte dès 999 Dh</span><span>·</span><span>Échange gratuit en magasin</span><span>·</span><span>Collection Printemps-Été 2026</span><span>·</span><span>Livraison offerte dès 999 Dh</span><span>·</span><span>Échange gratuit en magasin</span><span>·</span><span>Collection Printemps-Été 2026</span></span></div>
+
+  <nav class="nav" id="nav">
+    <ul class="nav-left">
+      <li><a href="index.html">Nouveautés</a></li>
+      <li><a href="collection.html" class="active">Collections</a></li>
+      <li><a href="lookbook.html">Lookbook</a></li>
+    </ul>
+    <a class="nav-logo" href="index.html">Olga</a>
+    <ul class="nav-right">
+      <li><a href="about.html">Notre histoire</a></li>
+      <li><a href="#">Promotions</a></li>
+    </ul>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-overlay" id="nav-overlay"></div>
+    <div class="mobile-nav-drawer">
+      <a href="index.html">Accueil</a>
+      <a href="collection.html">Collections</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="about.html">Notre histoire</a>
+      <a href="#">Promotions</a>
+    </div>
+  </div>
+
+  <div class="page-hero">
+    <div class="page-hero-over">Printemps · Été 2026</div>
+    <h1 class="page-hero-h1">Nos <em>collections</em></h1>
+    <p class="page-hero-p">Des pièces conçues pour la femme moderne — élégantes, pratiques, intemporelles.</p>
+  </div>
+
+  <div class="collection-layout">
+    <!-- FILTERS -->
+    <aside class="filters">
+      <div class="filter-title">Catégorie</div>
+      <div class="filter-tags">
+        <div class="filter-tag active" onclick="filterCat(this,'all')">Tout <span class="filter-count">42</span></div>
+        <div class="filter-tag" onclick="filterCat(this,'sacs')">Sacs à main <span class="filter-count">14</span></div>
+        <div class="filter-tag" onclick="filterCat(this,'pret')">Prêt-à-porter <span class="filter-count">12</span></div>
+        <div class="filter-tag" onclick="filterCat(this,'chaussures')">Chaussures <span class="filter-count">8</span></div>
+        <div class="filter-tag" onclick="filterCat(this,'access')">Accessoires <span class="filter-count">6</span></div>
+        <div class="filter-tag" onclick="filterCat(this,'valises')">Valises <span class="filter-count">2</span></div>
+      </div>
+      <hr class="filter-divider">
+      <div class="filter-title">Prix</div>
+      <div class="filter-tags">
+        <div class="filter-tag">Moins de 300 Dh</div>
+        <div class="filter-tag active">300 – 700 Dh</div>
+        <div class="filter-tag">700 – 1200 Dh</div>
+        <div class="filter-tag">Plus de 1200 Dh</div>
+      </div>
+      <hr class="filter-divider">
+      <div class="filter-title">Couleur</div>
+      <div class="filter-tags" style="flex-direction:row;flex-wrap:wrap;gap:0.5rem;">
+        <div style="width:22px;height:22px;border-radius:50%;background:#C4A882;border:2px solid var(--charcoal);cursor:pointer;" title="Sable"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#8A9B8E;cursor:pointer;border:2px solid transparent;" title="Sage"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#3D2E24;cursor:pointer;border:2px solid transparent;" title="Espresso"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#C4563A;cursor:pointer;border:2px solid transparent;" title="Terra"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#F7F3EE;cursor:pointer;border:2px solid var(--ivory-deep);" title="Ivoire"></div>
+        <div style="width:22px;height:22px;border-radius:50%;background:#1A1614;cursor:pointer;border:2px solid transparent;" title="Noir"></div>
+      </div>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <div class="collection-products">
+      <div class="cat-tabs">
+        <div class="cat-tab active">Tout</div>
+        <div class="cat-tab">Nouveautés</div>
+        <div class="cat-tab">Sacs</div>
+        <div class="cat-tab">Prêt-à-porter</div>
+        <div class="cat-tab">Chaussures</div>
+        <div class="cat-tab">Accessoires</div>
+        <div class="cat-tab">Promotions</div>
+      </div>
+      <div class="collection-top">
+        <span class="col-count">42 produits</span>
+        <select class="sort-select">
+          <option>Meilleures ventes</option>
+          <option>Nouveautés</option>
+          <option>Prix croissant</option>
+          <option>Prix décroissant</option>
+        </select>
+      </div>
+      <div class="pgrid">
+        <div class="pcard r" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_16_6dccc60d-59d2-4e62-9a8d-e9b15aa0a023.png?v=1761642435&width=500" alt="Sac Cabas"><div class="pbadge new">Nouveau</div><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Sacs à main</div><div class="pname">Sac Cabas Signature</div><div class="pprice">890 Dh</div>
+        </div>
+        <div class="pcard r d1" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_14_c6ced9d3-24f8-4e97-8a2e-f09cde789bb7.png?v=1761642468&width=500" alt="Sac Olga"><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Sacs à main</div><div class="pname">Sac Bandoulière Cuir</div><div class="pprice">750 Dh</div>
+        </div>
+        <div class="pcard r d2" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-32_0819764f-b5e4-4c66-a7d8-b406cdd3c55f.jpg?v=1773329624&width=500" alt="Manteau"><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Prêt-à-porter</div><div class="pname">Manteau Classique</div><div class="pprice">1 200 Dh</div>
+        </div>
+        <div class="pcard r d3" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/a_28.png?v=1773411118&width=500" alt="Manteau Olga"><div class="pbadge new">Nouveau</div><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Prêt-à-porter</div><div class="pname">Manteau Confort SS26</div><div class="pprice">980 Dh</div>
+        </div>
+        <div class="pcard r" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_2_1cdab00e-9f51-4d4a-8470-ef8dcbdf9ca9.png?v=1771504793&width=500" alt="Basket"><div class="pbadge sale">−20%</div><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Chaussures</div><div class="pname">Basket Casual</div>
+          <div class="pprice"><span class="pprice-sale">480 Dh</span><span class="pprice-orig">600 Dh</span></div>
+        </div>
+        <div class="pcard r d1" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_3_df643f40-bbaa-4c7b-9d40-89ab3fd185b6.png?v=1771504827&width=500" alt="Basket"><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Chaussures</div><div class="pname">Basket Élégance</div><div class="pprice">560 Dh</div>
+        </div>
+        <div class="pcard r d2" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/IMG_7234.jpg?v=1730126211&width=500" alt="Châle"><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Accessoires</div><div class="pname">Châle Lycra Dégradé</div><div class="pprice">320 Dh</div>
+        </div>
+        <div class="pcard r d3" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/photo_2026-04-25_09-34-23.jpg?v=1777108063&width=500" alt="Sac"><div class="pbadge new">Nouveau</div><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Sacs à main</div><div class="pname">Cabas Printemps</div><div class="pprice">820 Dh</div>
+        </div>
+        <div class="pcard r" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/photo_2026-04-25_09-34-15.jpg?v=1777108063&width=500" alt="Sac"><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Sacs à main</div><div class="pname">Sac Tote Été</div><div class="pprice">680 Dh</div>
+        </div>
+        <div class="pcard r d1" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_15_622874cb-4e7a-46ce-9a6e-9614a9a6ada4.png?v=1761642400&width=500" alt="Sac"><div class="pbadge sale">−15%</div><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Sacs à main</div><div class="pname">Sac Seau Camel</div>
+          <div class="pprice"><span class="pprice-sale">595 Dh</span><span class="pprice-orig">700 Dh</span></div>
+        </div>
+        <div class="pcard r d2" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-24_9a026f90-531b-4d9f-9b6c-825759612386.jpg?v=1773329709&width=500" alt="Manteau"><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Prêt-à-porter</div><div class="pname">Manteau Confort Écru</div><div class="pprice">1 100 Dh</div>
+        </div>
+        <div class="pcard r d3" onclick="window.location='product.html'">
+          <div class="pcard-img"><img src="https://www.olgadsn.com/cdn/shop/files/Gemini_Generated_Image_miw8x3miw8x3miw8.png?v=1776941743&width=500" alt="Valise"><div class="pbadge new">Nouveau</div><div class="pwish">♡</div><div class="padd" onclick="addToCart(event)">Ajouter au panier</div></div>
+          <div class="pcat">Valises</div><div class="pname">Valise Élégance 2026</div><div class="pprice">2 400 Dh</div>
+        </div>
+      </div>
+      <div class="load-more r">
+        <button class="btn btn-outline" onclick="this.textContent='Chargement...'">Charger plus</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-grid">
+      <div><span class="foot-logo">Olga</span><div class="foot-since">Depuis 1999</div><p class="foot-tagline">Mode féminine marocaine.</p></div>
+      <div><div class="foot-col-title">Collections</div><ul class="foot-links"><li><a href="collection.html">Prêt-à-porter</a></li><li><a href="collection.html">Chaussures</a></li><li><a href="collection.html">Sacs</a></li><li><a href="#">Promotions</a></li></ul></div>
+      <div><div class="foot-col-title">Informations</div><ul class="foot-links"><li><a href="about.html">Notre histoire</a></li><li><a href="#">Livraison</a></li><li><a href="#">Confidentialité</a></li></ul></div>
+      <div><div class="foot-col-title">Suivez-nous</div><ul class="foot-links"><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span class="foot-copy">© 2026 OLGA DSN MAROC</span><div class="foot-legal"><a href="#">CGV</a><a href="#">Confidentialité</a></div></div>
+  </footer>
+  <div class="toast" id="toast">✓ Ajouté au panier</div>
+
+  <script>
+    const revEls = document.querySelectorAll('.r');
+    const revObs = new IntersectionObserver(e => { e.forEach(el => { if (el.isIntersecting) { el.target.classList.add('vis'); revObs.unobserve(el.target); } }); }, { threshold: 0.07 });
+    revEls.forEach(el => revObs.observe(el));
+    window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 30), { passive: true });
+    document.getElementById('burger').addEventListener('click', function() { this.classList.toggle('open'); document.getElementById('mobile-nav').classList.toggle('open'); });
+    document.getElementById('nav-overlay').addEventListener('click', () => { document.getElementById('burger').classList.remove('open'); document.getElementById('mobile-nav').classList.remove('open'); });
+
+    function addToCart(e) { e.stopPropagation(); const t = document.getElementById('toast'); t.textContent = '✓ Ajouté au panier'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+    function filterCat(el, cat) { document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
+
+    document.querySelectorAll('.cat-tab').forEach(tab => { tab.addEventListener('click', function() { document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active')); this.classList.add('active'); }); });
+    document.querySelectorAll('.pwish').forEach(btn => { btn.addEventListener('click', e => { e.stopPropagation(); btn.textContent = btn.textContent === '♡' ? '♥' : '♡'; btn.style.color = btn.textContent === '♥' ? 'var(--terra)' : ''; }); });
+  </script>
+</body>
+</html>

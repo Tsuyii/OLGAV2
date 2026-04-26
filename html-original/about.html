@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notre Histoire — OLGA DSN depuis 1999</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    /* ---- ABOUT HERO ---- */
+    .about-hero {
+      background: var(--espresso);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+      overflow: hidden;
+    }
+    .about-hero-left {
+      padding: 8rem 5rem 6rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .about-hero-since {
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.15s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .about-hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.04;
+      color: var(--sand-light);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.3s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .about-hero-h1 em { font-style: italic; color: var(--terra-light); }
+    .about-hero-p {
+      font-size: 0.88rem;
+      color: rgba(232,217,197,0.5);
+      line-height: 1.85;
+      max-width: 340px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .about-hero-stat-row {
+      display: flex;
+      gap: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .about-stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--sand);
+      display: block;
+      line-height: 1.1;
+    }
+    .about-stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(196,168,130,0.45);
+    }
+    .about-hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      filter: sepia(0.12) brightness(0.88);
+    }
+    .about-hero-right-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(61,46,36,0.3), transparent);
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:none; }
+    }
+
+    /* ---- FOUNDER SECTION ---- */
+    .founder {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+    }
+    .founder-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-img-wrap img {
+      width: 100%;
+      height: 75vh;
+      object-fit: cover;
+    }
+    .founder-img-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(232,217,197,0.7);
+      background: rgba(26,22,20,0.5);
+      padding: 6px 12px;
+      backdrop-filter: blur(8px);
+    }
+    .founder-text {
+      padding: 5rem;
+      background: var(--ivory-warm);
+    }
+    .founder-over {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1rem;
+    }
+    .founder-name {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .founder-name em { font-style: italic; color: var(--sand); }
+    .founder-quote {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--espresso);
+      line-height: 1.6;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--terra);
+      margin-bottom: 2rem;
+    }
+    .founder-body {
+      font-size: 0.84rem;
+      color: var(--warm-gray);
+      line-height: 1.85;
+    }
+    .founder-sig {
+      margin-top: 2rem;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--sand-muted);
+    }
+
+    /* ---- STORY / TIMELINE ---- */
+    .timeline {
+      padding: var(--section-pad);
+      background: var(--charcoal);
+    }
+    .timeline-head {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    .timeline-over {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+      margin-bottom: 1rem;
+    }
+    .timeline-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 4.5rem);
+      font-weight: 300;
+      color: var(--sand-light);
+      line-height: 1.1;
+    }
+    .timeline-title em { font-style: italic; color: var(--terra-light); }
+    .tl-track {
+      position: relative;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .tl-track::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(196,168,130,0.15);
+      transform: translateX(-50%);
+    }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      align-items: start;
+      margin-bottom: 4rem;
+    }
+    .tl-item:nth-child(even) .tl-content-left { order: 3; text-align: left; padding-left: 2.5rem; padding-right: 0; }
+    .tl-item:nth-child(even) .tl-dot-col { order: 2; }
+    .tl-item:nth-child(even) .tl-content-right { order: 1; text-align: right; padding-right: 2.5rem; }
+    .tl-content-left {
+      text-align: right;
+      padding-right: 2.5rem;
+    }
+    .tl-content-right {
+      padding-left: 2.5rem;
+    }
+    .tl-dot-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4px;
+    }
+    .tl-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--terra);
+      border: 3px solid var(--charcoal);
+      outline: 1px solid var(--terra);
+      flex-shrink: 0;
+    }
+    .tl-year {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: rgba(196,168,130,0.2);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .tl-event {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--sand-light);
+      margin-bottom: 0.5rem;
+    }
+    .tl-desc {
+      font-size: 0.78rem;
+      color: rgba(196,168,130,0.4);
+      line-height: 1.7;
+    }
+
+    /* ---- BRAND VALUES ---- */
+    .values {
+      padding: var(--section-pad);
+      background: var(--ivory);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    .value-card {
+      padding: 2.5rem;
+      border: 1px solid var(--ivory-deep);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .value-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--terra);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .value-card:hover { border-color: var(--sand-light); }
+    .value-card:hover::before { transform: scaleX(1); }
+    .value-num {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--ivory-deep);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--charcoal);
+      margin-bottom: 0.75rem;
+    }
+    .value-body {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      line-height: 1.8;
+    }
+
+    /* ---- ATELIER SECTION ---- */
+    .atelier {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+    .atelier-text {
+      padding: 5rem 4.5rem;
+      background: var(--ivory-warm);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .atelier-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .atelier-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(0.08);
+    }
+    .atelier-img-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to left, transparent 60%, rgba(237,231,220,0.3));
+    }
+
+    /* ---- STORES ---- */
+    .stores {
+      padding: var(--section-pad);
+      background: var(--espresso);
+    }
+    .stores-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 4.5rem);
+      font-weight: 300;
+      color: var(--sand-light);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .stores-title em { font-style: italic; color: var(--terra-light); }
+    .stores-sub {
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(196,168,130,0.45);
+      margin-bottom: 4rem;
+    }
+    .stores-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .store-card {
+      background: rgba(255,255,255,0.03);
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(196,168,130,0.08);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .store-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(196,168,130,0.2);
+    }
+    .store-city {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--sand);
+      margin-bottom: 1rem;
+    }
+    .store-address {
+      font-size: 0.8rem;
+      color: rgba(196,168,130,0.45);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .store-hours-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+      margin-bottom: 0.4rem;
+    }
+    .store-hours {
+      font-size: 0.8rem;
+      color: rgba(196,168,130,0.45);
+      line-height: 1.6;
+    }
+    .store-phone {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--sand-muted);
+      border-bottom: 1px solid rgba(196,168,130,0.2);
+      width: fit-content;
+      padding-bottom: 2px;
+      cursor: pointer;
+      transition: color 0.25s;
+    }
+    .store-phone:hover { color: var(--sand-light); }
+
+    /* ---- PRESS ---- */
+    .press {
+      padding: 4rem 3.5rem;
+      background: var(--ivory-warm);
+      text-align: center;
+    }
+    .press-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 2rem;
+    }
+    .press-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+    .press-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--ivory-deep);
+      font-style: italic;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .press-name:hover { opacity: 1; }
+
+    /* ---- JOIN CTA ---- */
+    .join-cta {
+      padding: 8rem 3.5rem;
+      background: var(--charcoal);
+      text-align: center;
+    }
+    .join-over {
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+      margin-bottom: 1.5rem;
+    }
+    .join-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 5rem);
+      font-weight: 300;
+      color: var(--sand-light);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .join-title em { font-style: italic; color: var(--terra-light); }
+    .join-sub {
+      font-size: 0.86rem;
+      color: rgba(196,168,130,0.4);
+      max-width: 380px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .join-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .about-hero { grid-template-columns: 1fr; min-height: auto; }
+      .about-hero-right { height: 55vw; }
+      .about-hero-left { padding: 3rem 1.5rem 2.5rem; }
+      .founder { grid-template-columns: 1fr; }
+      .founder-img-wrap img { height: 60vw; }
+      .founder-text { padding: 2.5rem 1.5rem; }
+      .tl-track::before { left: 20px; }
+      .tl-item { grid-template-columns: 40px 1fr; }
+      .tl-item .tl-content-left { display: none; }
+      .tl-item:nth-child(even) .tl-content-left { display: none; }
+      .tl-item:nth-child(even) .tl-content-right { order: 3; text-align: left; padding-left: 1.5rem; }
+      .tl-item:nth-child(even) .tl-dot-col { order: 1; }
+      .tl-dot-col { align-items: flex-start; padding-left: 14px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .atelier { grid-template-columns: 1fr; }
+      .atelier-img { height: 60vw; }
+      .stores-grid { grid-template-columns: 1fr; }
+      .press-logos { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCE BAR -->
+  <div class="announce">
+    <span class="announce-track">
+      <span>Livraison offerte dès 999 Dh</span>
+      <span>·</span>
+      <span>Échange gratuit en magasin</span>
+      <span>·</span>
+      <span>3 boutiques au Maroc — Casa · Rabat · Marrakech</span>
+      <span>·</span>
+      <span>Livraison offerte dès 999 Dh</span>
+      <span>·</span>
+      <span>Échange gratuit en magasin</span>
+      <span>·</span>
+      <span>3 boutiques au Maroc — Casa · Rabat · Marrakech</span>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <ul class="nav-left">
+      <li><a href="index.html">Nouveautés</a></li>
+      <li><a href="collection.html">Collections</a></li>
+      <li><a href="lookbook.html">Lookbook</a></li>
+    </ul>
+    <a class="nav-logo" href="index.html">Olga</a>
+    <ul class="nav-right">
+      <li><a href="about.html" class="active">Notre histoire</a></li>
+      <li><a href="#">Promotions</a></li>
+    </ul>
+    <div class="nav-icons" style="display:none;">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-overlay" id="nav-overlay"></div>
+    <div class="mobile-nav-drawer">
+      <a href="index.html">Accueil</a>
+      <a href="collection.html">Collections</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="about.html">Notre histoire</a>
+      <a href="#">Promotions</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-left">
+      <div class="about-hero-since">Depuis 1999 · Casablanca, Maroc</div>
+      <h1 class="about-hero-h1">
+        Notre<br>
+        <em>Histoire</em>
+      </h1>
+      <p class="about-hero-p">
+        Née d'une passion pour la femme marocaine et le vêtement bien fait, OLGA est aujourd'hui l'une des maisons de mode les plus respectées du Royaume.
+      </p>
+      <div class="about-hero-stat-row">
+        <div>
+          <span class="about-stat-num">27</span>
+          <span class="about-stat-label">Ans d'histoire</span>
+        </div>
+        <div>
+          <span class="about-stat-num">3</span>
+          <span class="about-stat-label">Boutiques</span>
+        </div>
+        <div>
+          <span class="about-stat-num">18k+</span>
+          <span class="about-stat-label">Clientes fidèles</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-hero-right">
+      <img src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34.jpg?v=1776941720&width=900"
+        alt="OLGA DSN — Atelier Casablanca">
+      <div class="about-hero-right-overlay"></div>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder">
+    <div class="founder-img-wrap r">
+      <img src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-32_0819764f-b5e4-4c66-a7d8-b406cdd3c55f.jpg?v=1773329624&width=800"
+        alt="Mohammed Sefrioui — Fondateur OLGA DSN">
+      <div class="founder-img-caption">Mohammed Sefrioui · Casablanca, 2024</div>
+    </div>
+    <div class="founder-text r d2">
+      <div class="founder-over">Le fondateur</div>
+      <h2 class="founder-name">Mohammed<br><em>Sefrioui</em></h2>
+      <blockquote class="founder-quote">
+        « J'ai créé OLGA pour la femme marocaine qui mérite des vêtements à la hauteur de sa force, de sa beauté et de son élégance naturelle. »
+      </blockquote>
+      <p class="founder-body">
+        Né à Casablanca, Mohammed Sefrioui grandit entouré des tissus et des broderies de l'artisanat marocain. Après des études à Paris, il revient au Maroc avec une vision claire : créer une maison de mode locale qui rivalise avec les grandes enseignes européennes, tout en restant profondément ancrée dans l'identité marocaine.
+      </p>
+      <br>
+      <p class="founder-body">
+        En 1999, il ouvre la première boutique OLGA dans le quartier Gauthier de Casablanca avec seulement douze pièces et une conviction absolue : la femme marocaine mérite le meilleur.
+      </p>
+      <div class="founder-sig">Mohammed Sefrioui</div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline">
+    <div class="timeline-head r">
+      <div class="timeline-over">Notre parcours</div>
+      <h2 class="timeline-title">27 ans d'<em>élégance</em></h2>
+    </div>
+    <div class="tl-track">
+      <div class="tl-item r">
+        <div class="tl-content-left">
+          <div class="tl-year">1999</div>
+          <div class="tl-event">La fondation</div>
+          <p class="tl-desc">Première boutique OLGA, quartier Gauthier, Casablanca. 12 pièces, une vision immense.</p>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content-right"></div>
+      </div>
+      <div class="tl-item r d1">
+        <div class="tl-content-left"></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content-right">
+          <div class="tl-year">2005</div>
+          <div class="tl-event">Première expansion</div>
+          <p class="tl-desc">Ouverture de la boutique Rabat-Agdal. La clientèle double en deux ans.</p>
+        </div>
+      </div>
+      <div class="tl-item r d2">
+        <div class="tl-content-left">
+          <div class="tl-year">2011</div>
+          <div class="tl-event">Ligne Maroquinerie</div>
+          <p class="tl-desc">Lancement de la ligne sacs et accessoires, fabriqués en collaboration avec des artisans de Fès.</p>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content-right"></div>
+      </div>
+      <div class="tl-item r d1">
+        <div class="tl-content-left"></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content-right">
+          <div class="tl-year">2016</div>
+          <div class="tl-event">Marrakech</div>
+          <p class="tl-desc">La boutique de la médina de Marrakech ouvre ses portes — notre écrin le plus emblématique.</p>
+        </div>
+      </div>
+      <div class="tl-item r d2">
+        <div class="tl-content-left">
+          <div class="tl-year">2022</div>
+          <div class="tl-event">OLGA en ligne</div>
+          <p class="tl-desc">Lancement de la boutique en ligne. OLGA accessible partout au Maroc et à l'international.</p>
+        </div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content-right"></div>
+      </div>
+      <div class="tl-item r d1">
+        <div class="tl-content-left"></div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-content-right">
+          <div class="tl-year">2026</div>
+          <div class="tl-event">Nouveau chapitre</div>
+          <p class="tl-desc">Refonte complète de l'identité visuelle. Collection SS26 — notre collection la plus ambitieuse à ce jour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND VALUES -->
+  <section class="values">
+    <div class="sec-head r">
+      <div>
+        <div class="sec-over">Ce en quoi nous croyons</div>
+        <h2 class="sec-title">Nos <em>valeurs</em></h2>
+      </div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card r d1">
+        <div class="value-num">01</div>
+        <div class="value-title">L'artisanat marocain</div>
+        <p class="value-body">Chaque pièce OLGA est un hommage au savoir-faire marocain. Nous collaborons avec des artisans locaux depuis notre fondation — tanneurs de Fès, tisserands de Marrakech, brodeurs de Casablanca.</p>
+      </div>
+      <div class="value-card r d2">
+        <div class="value-num">02</div>
+        <div class="value-title">L'élégance sans effort</div>
+        <p class="value-body">Nous refusons le compromis entre style et confort. Nos pièces sont pensées pour la femme active qui exige les deux — légèreté, coupe parfaite, matières qui respirent.</p>
+      </div>
+      <div class="value-card r d3">
+        <div class="value-num">03</div>
+        <div class="value-title">La mode responsable</div>
+        <p class="value-body">Collections limitées, matières nobles et durables, production locale. Nous construisons pour durer, pas pour jeter. Chaque achat OLGA est un investissement dans votre garde-robe et dans l'économie marocaine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATELIER -->
+  <section class="atelier">
+    <div class="atelier-text r">
+      <div class="sec-over">Notre atelier</div>
+      <h2 class="sec-title" style="margin-bottom:1.5rem">Fait à <em>Casablanca</em></h2>
+      <p style="font-size:0.84rem;color:var(--warm-gray);line-height:1.85;margin-bottom:1.5rem;">
+        Notre atelier principal est situé dans le quartier des Habous à Casablanca. C'est ici que naissent les collections — des premières esquisses aux finitions finales. Une équipe de 24 couturières et artisans travaille chaque pièce avec une précision méticuleuse.
+      </p>
+      <p style="font-size:0.84rem;color:var(--warm-gray);line-height:1.85;margin-bottom:2rem;">
+        Nous produisons en petites quantités pour garantir la qualité et limiter le gaspillage. Chaque pièce est inspectée à la main avant de quitter nos ateliers.
+      </p>
+      <a href="collection.html" class="btn btn-dark" style="width:fit-content">Découvrir la collection</a>
+    </div>
+    <div class="atelier-img r d2">
+      <img src="https://www.olgadsn.com/cdn/shop/files/a_28.png?v=1773411118&width=900"
+        alt="Atelier OLGA DSN Casablanca">
+      <div class="atelier-img-scrim"></div>
+    </div>
+  </section>
+
+  <!-- STORES -->
+  <section class="stores">
+    <div class="sec-over r" style="text-align:center;color:var(--terra-light);margin-bottom:1rem">Nos adresses</div>
+    <h2 class="stores-title r d1">Nos <em>boutiques</em></h2>
+    <p class="stores-sub r d2">Venez nous rendre visite — chaque boutique est un espace de découverte et d'évasion.</p>
+    <div class="stores-grid">
+      <div class="store-card r d1">
+        <div class="store-city">Casablanca</div>
+        <p class="store-address">
+          15 Rue Soumaya<br>
+          Quartier Gauthier<br>
+          20050 Casablanca
+        </p>
+        <div class="store-hours-label">Horaires</div>
+        <div class="store-hours">
+          Lun–Sam : 10h00 – 20h00<br>
+          Dimanche : 11h00 – 18h00
+        </div>
+        <div class="store-phone">+212 522 XXX XXX</div>
+      </div>
+      <div class="store-card r d2">
+        <div class="store-city">Rabat</div>
+        <p class="store-address">
+          42 Avenue Hassan II<br>
+          Quartier Agdal<br>
+          10080 Rabat
+        </p>
+        <div class="store-hours-label">Horaires</div>
+        <div class="store-hours">
+          Lun–Sam : 10h00 – 20h00<br>
+          Dimanche : 11h00 – 18h00
+        </div>
+        <div class="store-phone">+212 537 XXX XXX</div>
+      </div>
+      <div class="store-card r d3">
+        <div class="store-city">Marrakech</div>
+        <p class="store-address">
+          8 Rue de la Liberté<br>
+          Guéliz<br>
+          40000 Marrakech
+        </p>
+        <div class="store-hours-label">Horaires</div>
+        <div class="store-hours">
+          Lun–Sam : 10h00 – 21h00<br>
+          Dimanche : 11h00 – 19h00
+        </div>
+        <div class="store-phone">+212 524 XXX XXX</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS -->
+  <div class="press r">
+    <div class="press-label">Ils parlent de nous</div>
+    <div class="press-logos">
+      <span class="press-name">L'Économiste</span>
+      <span class="press-name">TelQuel</span>
+      <span class="press-name">Femmes du Maroc</span>
+      <span class="press-name">Médina Style</span>
+      <span class="press-name">L'Usine Nouvelle</span>
+    </div>
+  </div>
+
+  <!-- JOIN CTA -->
+  <section class="join-cta">
+    <div class="join-over r">Rejoignez-nous</div>
+    <h2 class="join-title r d1">Faites partie de<br>l'histoire <em>OLGA.</em></h2>
+    <p class="join-sub r d2">Découvrez nos dernières collections ou visitez l'une de nos boutiques au Maroc.</p>
+    <div class="join-actions r d3">
+      <a href="collection.html" class="btn btn-light">Voir les collections</a>
+      <a href="lookbook.html" class="btn btn-terra">Lookbook SS26</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo">Olga</span>
+        <div class="foot-since">Depuis 1999</div>
+        <p class="foot-tagline">Mode féminine marocaine. Des pièces pensées pour sublimer chaque femme, du quotidien à l'exceptionnel.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Collections</div>
+        <ul class="foot-links">
+          <li><a href="collection.html">Prêt-à-porter</a></li>
+          <li><a href="collection.html">Chaussures</a></li>
+          <li><a href="collection.html">Sacs &amp; Maroquinerie</a></li>
+          <li><a href="collection.html">Accessoires</a></li>
+          <li><a href="#">Promotions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">Informations</div>
+        <ul class="foot-links">
+          <li><a href="about.html">Notre histoire</a></li>
+          <li><a href="#">Livraison &amp; Retours</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Conditions d'utilisation</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">Nous suivre</div>
+        <ul class="foot-links">
+          <li><a href="#">Instagram @olgadsn</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Nos boutiques</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2026 OLGA DSN MAROC. Tous droits réservés.</span>
+      <div class="foot-legal">
+        <a href="#">Confidentialité</a>
+        <a href="#">CGV</a>
+        <a href="#">Remboursement</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const revEls = document.querySelectorAll('.r');
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.07 });
+    revEls.forEach(el => revObs.observe(el));
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30), { passive: true });
+
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const overlay = document.getElementById('nav-overlay');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    overlay.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+  </script>
+</body>
+</html>

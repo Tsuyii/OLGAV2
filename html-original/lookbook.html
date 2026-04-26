@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lookbook SS26 — OLGA DSN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    /* ---- LOOKBOOK HERO ---- */
+    .lb-hero {
+      position: relative;
+      height: 92vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .lb-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+    .lb-hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,22,20,0.75) 0%, rgba(26,22,20,0.15) 55%, transparent 100%);
+    }
+    .lb-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 4.5rem 5rem;
+      max-width: 640px;
+    }
+    .lb-hero-season {
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .lb-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 7rem);
+      font-weight: 300;
+      line-height: 1.02;
+      color: var(--sand-light);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .lb-hero-title em { font-style: italic; color: var(--terra-light); }
+    .lb-hero-sub {
+      font-size: 0.85rem;
+      color: rgba(232,217,197,0.6);
+      line-height: 1.7;
+      max-width: 340px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    .lb-hero-scroll {
+      position: absolute;
+      right: 4rem;
+      bottom: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(232,217,197,0.5);
+      z-index: 2;
+    }
+    .lb-hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, rgba(196,168,130,0.5));
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { transform: scaleY(1); opacity: 0.6; }
+      50% { transform: scaleY(0.5); opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(22px); }
+      to   { opacity:1; transform:none; }
+    }
+
+    /* ---- ISSUE HEADER ---- */
+    .lb-issue {
+      padding: 4rem 3.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--ivory-deep);
+    }
+    .lb-issue-num {
+      font-family: var(--font-display);
+      font-size: 8rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--ivory-deep);
+      letter-spacing: -0.04em;
+    }
+    .lb-issue-info { text-align: right; }
+    .lb-issue-vol {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 0.5rem;
+    }
+    .lb-issue-name {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 300;
+      color: var(--charcoal);
+    }
+    .lb-issue-name em { font-style: italic; color: var(--sand); }
+
+    /* ---- EDITORIAL SPREAD: FULL BLEED ---- */
+    .lb-spread-full {
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-spread-full img {
+      width: 100%;
+      height: 90vh;
+      min-height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+    .lb-caption {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 3rem;
+      text-align: right;
+    }
+    .lb-caption-num {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 300;
+      color: rgba(232,217,197,0.15);
+      line-height: 1;
+      display: block;
+    }
+    .lb-caption-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(232,217,197,0.6);
+    }
+
+    /* ---- EDITORIAL SPREAD: HALF ---- */
+    .lb-spread-half {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .lb-spread-half-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-spread-half-img img {
+      width: 100%;
+      height: 80vh;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .lb-spread-half-img:hover img { transform: scale(1.03); }
+    .lb-text-panel {
+      background: var(--espresso);
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .lb-text-panel.light { background: var(--ivory-warm); }
+    .lb-panel-over {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terra-light);
+    }
+    .lb-panel-over.dark { color: var(--terra); }
+    .lb-panel-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--sand-light);
+    }
+    .lb-panel-title.dark { color: var(--charcoal); }
+    .lb-panel-title em { font-style: italic; }
+    .lb-panel-body {
+      font-size: 0.84rem;
+      color: rgba(232,217,197,0.55);
+      line-height: 1.85;
+      max-width: 340px;
+    }
+    .lb-panel-body.dark { color: var(--warm-gray); }
+
+    /* ---- SHOP THE LOOK OVERLAY ---- */
+    .lb-look {
+      position: relative;
+      overflow: hidden;
+    }
+    .lb-look img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    }
+    .lb-look:hover img { transform: scale(1.03); }
+    .shop-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26,22,20,0);
+      transition: background 0.4s;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 2rem;
+    }
+    .lb-look:hover .shop-overlay { background: rgba(26,22,20,0.45); }
+    .shop-panel {
+      background: rgba(247,243,238,0.95);
+      backdrop-filter: blur(12px);
+      padding: 1.2rem 1.5rem;
+      min-width: 220px;
+      transform: translateY(12px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+    }
+    .lb-look:hover .shop-panel { opacity: 1; transform: none; pointer-events: all; }
+    .shop-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 0.8rem;
+    }
+    .shop-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--ivory-deep);
+      font-size: 0.76rem;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .shop-item:last-child { border: none; }
+    .shop-item:hover { color: var(--sand); }
+    .shop-item-price { font-size: 0.7rem; color: var(--warm-gray); }
+    .shop-btn {
+      margin-top: 0.75rem;
+      width: 100%;
+      padding: 10px;
+      background: var(--espresso);
+      color: var(--sand-light);
+      border: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .shop-btn:hover { background: var(--charcoal); }
+
+    /* ---- 3-UP GRID ---- */
+    .lb-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .lb-grid-3 .lb-look { min-height: 65vh; }
+
+    /* ---- ASYMMETRIC SPREAD ---- */
+    .lb-asym {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+    }
+    .lb-asym .lb-look { min-height: 75vh; }
+    .lb-asym-right {
+      display: flex;
+      flex-direction: column;
+    }
+    .lb-asym-right .lb-look { flex: 1; min-height: 37.5vh; }
+
+    /* ---- PULL QUOTE ---- */
+    .lb-quote {
+      padding: 7rem 3.5rem;
+      text-align: center;
+      background: var(--ivory-warm);
+    }
+    .lb-quote-mark {
+      font-family: var(--font-display);
+      font-size: 8rem;
+      line-height: 0.6;
+      color: var(--sand-light);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .lb-quote-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--charcoal);
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      line-height: 1.45;
+    }
+    .lb-quote-attr {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+    }
+
+    /* ---- CREDITS ---- */
+    .lb-credits {
+      padding: 3rem 3.5rem;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 2rem;
+      border-top: 1px solid var(--ivory-deep);
+      border-bottom: 1px solid var(--ivory-deep);
+    }
+    .lb-credit-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 0.4rem;
+    }
+    .lb-credit-value {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--charcoal);
+    }
+
+    /* ---- ARCHIVE CTA ---- */
+    .lb-archive {
+      padding: 6rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .lb-archive-over {
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+    .lb-archive-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 300;
+      color: var(--charcoal);
+    }
+    .lb-archive-title em { font-style: italic; color: var(--sand); }
+    .lb-archive-sub { font-size: 0.85rem; color: var(--warm-gray); max-width: 380px; line-height: 1.7; }
+    .lb-prev-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 1rem;
+    }
+    .lb-prev-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .lb-prev-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    .lb-prev-card:hover img { transform: scale(1.05); }
+    .lb-prev-season {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sand-light);
+      background: rgba(26,22,20,0.6);
+      padding: 5px 10px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .lb-spread-half { grid-template-columns: 1fr; }
+      .lb-spread-half-img img { height: 60vw; }
+      .lb-text-panel { padding: 3rem 2rem; }
+      .lb-grid-3 { grid-template-columns: 1fr; }
+      .lb-grid-3 .lb-look { min-height: 70vw; }
+      .lb-asym { grid-template-columns: 1fr; }
+      .lb-asym .lb-look { min-height: 70vw; }
+      .lb-credits { grid-template-columns: repeat(2,1fr); }
+      .lb-hero-content { padding: 0 1.5rem 3rem; }
+      .lb-hero-scroll { display: none; }
+      .lb-issue { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 2.5rem 1.5rem 1.5rem; }
+      .lb-prev-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCE BAR -->
+  <div class="announce">
+    <span class="announce-track">
+      <span>Collection SS26 — disponible maintenant</span>
+      <span>·</span>
+      <span>Lookbook Printemps-Été 2026</span>
+      <span>·</span>
+      <span>Livraison offerte dès 999 Dh</span>
+      <span>·</span>
+      <span>Collection SS26 — disponible maintenant</span>
+      <span>·</span>
+      <span>Lookbook Printemps-Été 2026</span>
+      <span>·</span>
+      <span>Livraison offerte dès 999 Dh</span>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <ul class="nav-left">
+      <li><a href="index.html">Nouveautés</a></li>
+      <li><a href="collection.html">Collections</a></li>
+      <li><a href="lookbook.html" class="active">Lookbook</a></li>
+    </ul>
+    <a class="nav-logo" href="index.html">Olga</a>
+    <ul class="nav-right">
+      <li><a href="about.html">Notre histoire</a></li>
+      <li><a href="#">Promotions</a></li>
+    </ul>
+    <div class="nav-icons" style="display:none;">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-overlay" id="nav-overlay"></div>
+    <div class="mobile-nav-drawer">
+      <a href="index.html">Accueil</a>
+      <a href="collection.html">Collections</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="about.html">Notre histoire</a>
+      <a href="#">Promotions</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="lb-hero">
+    <img class="lb-hero-img"
+      src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34.jpg?v=1776941720&width=1600"
+      alt="Lookbook OLGA SS26 — Lumières Dorées">
+    <div class="lb-hero-scrim"></div>
+    <div class="lb-hero-content">
+      <div class="lb-hero-season">Printemps — Été 2026</div>
+      <h1 class="lb-hero-title">
+        Lumières<br>
+        <em>Dorées</em>
+      </h1>
+      <p class="lb-hero-sub">Une collection pensée pour la femme marocaine moderne — entre héritage et élégance contemporaine.</p>
+    </div>
+    <div class="lb-hero-scroll">
+      <span>Défiler</span>
+      <span class="lb-hero-scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- ISSUE HEADER -->
+  <div class="lb-issue r">
+    <div class="lb-issue-num">01</div>
+    <div class="lb-issue-info">
+      <div class="lb-issue-vol">Volume I · SS26</div>
+      <div class="lb-issue-name">Les <em>Silhouettes</em></div>
+    </div>
+  </div>
+
+  <!-- SPREAD 1: Full bleed -->
+  <div class="lb-spread-full r">
+    <img src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-32_0819764f-b5e4-4c66-a7d8-b406cdd3c55f.jpg?v=1773329624&width=1600"
+      alt="Éditorial Manteau Taupe">
+    <div class="lb-caption">
+      <span class="lb-caption-num">I</span>
+      <span class="lb-caption-label">Manteau Oversize · Taupe Camel</span>
+    </div>
+  </div>
+
+  <!-- SPREAD 2: Half / text panel -->
+  <div class="lb-spread-half">
+    <div class="lb-spread-half-img r">
+      <img src="https://www.olgadsn.com/cdn/shop/files/a_28.png?v=1773411118&width=900"
+        alt="Manteau Collection">
+    </div>
+    <div class="lb-text-panel r d2">
+      <div class="lb-panel-over">La pièce signature</div>
+      <h2 class="lb-panel-title">
+        L'élégance<br>
+        <em>sans effort.</em>
+      </h2>
+      <p class="lb-panel-body">
+        Un manteau qui traverse les saisons, les humeurs, les occasions. Taillé dans une laine marocaine d'exception, il incarne la philosophie OLGA : moins pour plus.
+      </p>
+      <a href="product.html" class="btn btn-light" style="width:fit-content">Découvrir la pièce</a>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="lb-quote r">
+    <span class="lb-quote-mark">"</span>
+    <p class="lb-quote-text">
+      Chaque pièce OLGA est une conversation entre le Maroc et le monde — une élégance qui ne s'explique pas, elle se ressent.
+    </p>
+    <div class="lb-quote-attr">Mohammed Sefrioui · Fondateur, OLGA DSN</div>
+  </div>
+
+  <!-- ISSUE HEADER 2 -->
+  <div class="lb-issue r">
+    <div class="lb-issue-num">02</div>
+    <div class="lb-issue-info">
+      <div class="lb-issue-vol">Volume II · SS26</div>
+      <div class="lb-issue-name"><em>Accessoires</em> & Maroquinerie</div>
+    </div>
+  </div>
+
+  <!-- SPREAD 3: Asymmetric with Shop the Look -->
+  <div class="lb-asym">
+    <div class="lb-look r">
+      <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_14_c6ced9d3-24f8-4e97-8a2e-f09cde789bb7.png?v=1761642468&width=1200"
+        alt="Sac Cuir Tressé SS26">
+      <div class="shop-overlay">
+        <div class="shop-panel">
+          <div class="shop-label">Porter ce look</div>
+          <div class="shop-item">
+            <span>Sac Cuir Tressé Camel</span>
+            <span class="shop-item-price">890 Dh</span>
+          </div>
+          <div class="shop-item">
+            <span>Manteau Oversize Taupe</span>
+            <span class="shop-item-price">1 490 Dh</span>
+          </div>
+          <button class="shop-btn" onclick="addToCart()">Acheter le look</button>
+        </div>
+      </div>
+    </div>
+    <div class="lb-asym-right">
+      <div class="lb-look r d2">
+        <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_16_6dccc60d-59d2-4e62-9a8d-e9b15aa0a023.png?v=1761642435&width=600"
+          alt="Sac Bandoulière Soirée">
+        <div class="shop-overlay">
+          <div class="shop-panel">
+            <div class="shop-label">Porter ce look</div>
+            <div class="shop-item">
+              <span>Sac Bandoulière Soirée</span>
+              <span class="shop-item-price">1 190 Dh</span>
+            </div>
+            <button class="shop-btn" onclick="addToCart()">Acheter</button>
+          </div>
+        </div>
+      </div>
+      <div class="lb-look r d3">
+        <img src="https://www.olgadsn.com/cdn/shop/files/IMG_7234.jpg?v=1730126211&width=600"
+          alt="Châle Laine Naturelle">
+        <div class="shop-overlay">
+          <div class="shop-panel">
+            <div class="shop-label">Porter ce look</div>
+            <div class="shop-item">
+              <span>Châle Laine Naturelle</span>
+              <span class="shop-item-price">590 Dh</span>
+            </div>
+            <button class="shop-btn" onclick="addToCart()">Acheter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPREAD 4: Half / text panel reverse -->
+  <div class="lb-spread-half">
+    <div class="lb-text-panel light r">
+      <div class="lb-panel-over dark">Artisanat Marocain</div>
+      <h2 class="lb-panel-title dark">
+        Chaque point,<br>
+        <em>une histoire.</em>
+      </h2>
+      <p class="lb-panel-body dark">
+        Nos sacs sont confectionnés par des artisans marocains dans nos ateliers de Casablanca. Le cuir est tanné à Fès, tressé à la main selon des techniques transmises de génération en génération.
+      </p>
+      <a href="collection.html" class="btn btn-dark" style="width:fit-content">Voir la maroquinerie</a>
+    </div>
+    <div class="lb-spread-half-img r d2">
+      <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_2_1cdab00e-9f51-4d4a-8470-ef8dcbdf9ca9.png?v=1771504793&width=900"
+        alt="Sneaker Artisanale">
+    </div>
+  </div>
+
+  <!-- ISSUE HEADER 3 -->
+  <div class="lb-issue r">
+    <div class="lb-issue-num">03</div>
+    <div class="lb-issue-info">
+      <div class="lb-issue-vol">Volume III · SS26</div>
+      <div class="lb-issue-name">Le <em>Voyage</em></div>
+    </div>
+  </div>
+
+  <!-- 3-UP GRID with Shop the Look -->
+  <div class="lb-grid-3">
+    <div class="lb-look r">
+      <img src="https://www.olgadsn.com/cdn/shop/files/Gemini_Generated_Image_miw8x3miw8x3miw8.png?v=1776941743&width=700"
+        alt="Valise OLGA">
+      <div class="shop-overlay">
+        <div class="shop-panel">
+          <div class="shop-label">Porter ce look</div>
+          <div class="shop-item">
+            <span>Valise Cabine Premium</span>
+            <span class="shop-item-price">2 290 Dh</span>
+          </div>
+          <button class="shop-btn" onclick="addToCart()">Acheter</button>
+        </div>
+      </div>
+    </div>
+    <div class="lb-look r d2">
+      <img src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34_1.jpg?v=1776945247&width=700"
+        alt="Look SS26">
+      <div class="shop-overlay">
+        <div class="shop-panel">
+          <div class="shop-label">Porter ce look</div>
+          <div class="shop-item">
+            <span>Ensemble Printemps</span>
+            <span class="shop-item-price">1 890 Dh</span>
+          </div>
+          <button class="shop-btn" onclick="addToCart()">Acheter</button>
+        </div>
+      </div>
+    </div>
+    <div class="lb-look r d3">
+      <img src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-32_0819764f-b5e4-4c66-a7d8-b406cdd3c55f.jpg?v=1773329624&width=700"
+        alt="Manteau Voyage">
+      <div class="shop-overlay">
+        <div class="shop-panel">
+          <div class="shop-label">Porter ce look</div>
+          <div class="shop-item">
+            <span>Manteau Oversize Taupe</span>
+            <span class="shop-item-price">1 490 Dh</span>
+          </div>
+          <button class="shop-btn" onclick="addToCart()">Acheter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREDITS -->
+  <div class="lb-credits r">
+    <div>
+      <div class="lb-credit-label">Direction créative</div>
+      <div class="lb-credit-value">OLGA DSN Studio</div>
+    </div>
+    <div>
+      <div class="lb-credit-label">Photographe</div>
+      <div class="lb-credit-value">Rania Alaoui</div>
+    </div>
+    <div>
+      <div class="lb-credit-label">Styling</div>
+      <div class="lb-credit-value">Leila Bencherki</div>
+    </div>
+    <div>
+      <div class="lb-credit-label">Lieu</div>
+      <div class="lb-credit-value">Casablanca, Maroc</div>
+    </div>
+  </div>
+
+  <!-- ARCHIVE CTA -->
+  <div class="lb-archive">
+    <div class="lb-archive-over r">Archives</div>
+    <h2 class="lb-archive-title r d1">Saisons <em>précédentes</em></h2>
+    <p class="lb-archive-sub r d2">Revisitez les éditions passées — chaque lookbook est une fenêtre ouverte sur notre histoire créative.</p>
+    <div class="lb-prev-grid">
+      <a href="lookbook.html" class="lb-prev-card r d1">
+        <img src="https://www.olgadsn.com/cdn/shop/files/a_28.png?v=1773411118&width=480" alt="AW25">
+        <span class="lb-prev-season">Automne — Hiver 2025</span>
+      </a>
+      <a href="lookbook.html" class="lb-prev-card r d2">
+        <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_14_c6ced9d3-24f8-4e97-8a2e-f09cde789bb7.png?v=1761642468&width=480" alt="SS25">
+        <span class="lb-prev-season">Printemps — Été 2025</span>
+      </a>
+      <a href="lookbook.html" class="lb-prev-card r d3">
+        <img src="https://www.olgadsn.com/cdn/shop/files/IMG_7234.jpg?v=1730126211&width=480" alt="AW24">
+        <span class="lb-prev-season">Automne — Hiver 2024</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo">Olga</span>
+        <div class="foot-since">Depuis 1999</div>
+        <p class="foot-tagline">Mode féminine marocaine. Des pièces pensées pour sublimer chaque femme, du quotidien à l'exceptionnel.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Collections</div>
+        <ul class="foot-links">
+          <li><a href="collection.html">Prêt-à-porter</a></li>
+          <li><a href="collection.html">Chaussures</a></li>
+          <li><a href="collection.html">Sacs &amp; Maroquinerie</a></li>
+          <li><a href="collection.html">Accessoires</a></li>
+          <li><a href="#">Promotions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">Informations</div>
+        <ul class="foot-links">
+          <li><a href="about.html">Notre histoire</a></li>
+          <li><a href="#">Livraison &amp; Retours</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Conditions d'utilisation</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">Nous suivre</div>
+        <ul class="foot-links">
+          <li><a href="#">Instagram @olgadsn</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Nos boutiques</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2026 OLGA DSN MAROC. Tous droits réservés.</span>
+      <div class="foot-legal">
+        <a href="#">Confidentialité</a>
+        <a href="#">CGV</a>
+        <a href="#">Remboursement</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">✓ Ajouté au panier</div>
+
+  <script>
+    const revEls = document.querySelectorAll('.r');
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.07 });
+    revEls.forEach(el => revObs.observe(el));
+
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30), { passive: true });
+
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const overlay = document.getElementById('nav-overlay');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    overlay.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+
+    function addToCart() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
