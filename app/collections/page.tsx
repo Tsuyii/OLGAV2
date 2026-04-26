@@ -81,6 +81,18 @@ export default function CollectionsPage() {
     fetchProducts()
   }, [])
 
+  // Reveal .r cards when they enter the viewport
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>('.pcard.r')
+    if (!els.length) return
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); observer.unobserve(e.target) } }),
+      { threshold: 0.05 }
+    )
+    els.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [products])
+
   const filteredProducts = activeTab === 'Tout' 
     ? products 
     : products.filter(p => {

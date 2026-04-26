@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
 import { useToast } from '@/context/ToastContext'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { Product } from '@/types'
 
 export function ProductCard({ product }: { product: Product }) {
@@ -11,6 +11,18 @@ export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart()
   const { showToast } = useToast()
   const [wished, setWished] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add('vis'); observer.unobserve(el) } },
+      { threshold: 0.05 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   function handleAddToCart(e: React.MouseEvent) {
     e.stopPropagation()
@@ -24,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <div className="pcard r" onClick={() => router.push(`/products/${product.slug}`)}>
+    <div ref={cardRef} className="pcard r" onClick={() => router.push(`/products/${product.slug}`)}>
       <div className="pcard-img">
         <Image
           src={product.images[0]}
