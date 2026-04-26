@@ -39,7 +39,7 @@ function transformDbProduct(p: any): Product {
     images: images.length > 0 ? images : ['https://www.olgadsn.com/cdn/shop/files/placeholder.jpg'],
     sizes,
     colors,
-    badge: p.is_featured ? 'new' : undefined,
+    badge: p.compare_price && p.base_price < p.compare_price ? 'sale' : p.is_featured ? 'new' : undefined,
     description: p.description,
     dbId: p.id,
     vendorId: p.vendor_id,
@@ -111,7 +111,7 @@ export default function CollectionsPage() {
       })
       showToast('✓ Ajouté à la wishlist')
     } catch (err) {
-      showToast('Connectez-vous pourwishlister')
+      showToast('Connectez-vous pour wishlister')
     }
   }
 

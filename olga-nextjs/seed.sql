@@ -4482,3 +4482,52 @@ VALUES
   ('0000015f-0000-0000-0002-000000000000', '0000015f-0000-0000-0000-000000000000', NULL, '{"size": "Moyenne(24\")"}'::jsonb, 0, 0, TRUE);
 
 -- Seeded: 352 products  |  1439 images  |  874 variants
+
+-- ================================================================
+-- RLS Policies — required for anon key to read products
+-- (idempotent: drops existing before recreating)
+-- ================================================================
+
+ALTER TABLE public.products        ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.product_images  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.product_variants ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.categories      ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.vendor_profiles ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+  DROP POLICY IF EXISTS "Public read active products"   ON public.products;
+  DROP POLICY IF EXISTS "Public read product images"    ON public.product_images;
+  DROP POLICY IF EXISTS "Public read product variants"  ON public.product_variants;
+  DROP POLICY IF EXISTS "Public read categories"        ON public.categories;
+  DROP POLICY IF EXISTS "Public read vendor profiles"   ON public.vendor_profiles;
+
+  CREATE POLICY "Public read active products"
+    ON public.products FOR SELECT USING (status = 'active' AND deleted_at IS NULL);
+
+  CREATE POLICY "Public read product images"
+    ON public.product_images FOR SELECT USING (true);
+
+  CREATE POLICY "Public read product variants"
+    ON public.product_variants FOR SELECT USING (is_active = true);
+
+  CREATE POLICY "Public read categories"
+    ON public.categories FOR SELECT USING (is_active = true);
+
+  CREATE POLICY "Public read vendor profiles"
+    ON public.vendor_profiles FOR SELECT USING (status = 'active');
+END $$;
+
+-- ================================================================
+-- Mark featured products (2 per category = 8 total)
+-- These appear on the homepage via getFeaturedProducts()
+-- ================================================================
+UPDATE public.products SET is_featured = TRUE WHERE id IN (
+  '00000000-0000-0000-0000-000000000000', -- Basket OLGA Calm (Chaussures)
+  '00000003-0000-0000-0000-000000000000', -- Basket Olga Casual (Chaussures)
+  '0000002b-0000-0000-0000-000000000000', -- first Prêt-à-Porter
+  '0000002c-0000-0000-0000-000000000000', -- second Prêt-à-Porter
+  '0000002e-0000-0000-0000-000000000000', -- first Accessoires
+  '0000002f-0000-0000-0000-000000000000', -- second Accessoires
+  '000000be-0000-0000-0000-000000000000', -- first Sacs
+  '000000bf-0000-0000-0000-000000000000'  -- second Sacs
+);
