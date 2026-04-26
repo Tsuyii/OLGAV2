@@ -16,7 +16,6 @@ export function Nav() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // Close drawer on route change
   useEffect(() => {
     setMenuOpen(false)
   }, [pathname])
@@ -38,13 +37,21 @@ export function Nav() {
           <li><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>
           <li><Link href="/promotions">Promotions</Link></li>
           <li>
-            <Link href="/compte" style={{ position: 'relative' }}>
-              Compte
+            <Link href="/compte" className="nav-icon-btn" aria-label="Mon compte">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
             </Link>
           </li>
           <li>
-            <Link href="/panier" style={{ position: 'relative' }}>
-              Panier{totalItems > 0 && <span className="nav-cart-count"> ({totalItems})</span>}
+            <Link href="/panier" className="nav-icon-btn" aria-label="Panier" style={{ position: 'relative' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              {totalItems > 0 && <span className="nav-cart-badge">{totalItems}</span>}
             </Link>
           </li>
         </ul>
@@ -61,7 +68,6 @@ export function Nav() {
         </button>
       </nav>
 
-      {/* Mobile drawer */}
       <div className={`mobile-nav${menuOpen ? ' open' : ''}`}>
         <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)} />
         <nav className="mobile-nav-drawer">
@@ -70,7 +76,8 @@ export function Nav() {
           <Link href="/lookbook">Lookbook</Link>
           <Link href="/a-propos">Notre histoire</Link>
           <Link href="/promotions">Promotions</Link>
-          <Link href="/auth/login">Mon compte</Link>
+          <Link href="/compte">Mon compte</Link>
+          <Link href="/panier">Panier{totalItems > 0 ? ` (${totalItems})` : ''}</Link>
         </nav>
       </div>
     </>

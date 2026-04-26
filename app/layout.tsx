@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer'
 import { ChatbotFab } from '@/components/ui/ChatbotFab'
 import { CartProvider } from '@/context/CartContext'
 import { ToastProvider } from '@/context/ToastContext'
+import { GlobalReveal } from '@/components/ui/GlobalReveal'
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ToastProvider>
           <CartProvider>
+            <GlobalReveal />
             <AnnounceBar />
             <Nav />
             <main>{children}</main>
