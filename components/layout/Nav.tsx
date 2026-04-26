@@ -36,8 +36,8 @@ export function Nav() {
           <Image
             src="https://www.olgadsn.com/cdn/shop/files/Sans_titre-1_86801151-1295-41a8-adf4-a87fe7ccb143.png?v=1770892187"
             alt="OLGA"
-            width={34}
-            height={34}
+            width={44}
+            height={44}
             className="nav-logo-img"
             priority
           />
