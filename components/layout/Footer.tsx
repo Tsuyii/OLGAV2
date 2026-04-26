@@ -1,11 +1,21 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Footer() {
   return (
     <footer>
       <div className="foot-grid">
         <div>
-          <span className="foot-logo">Olga</span>
+          <div className="foot-logo">
+            <Image
+              src="https://www.olgadsn.com/cdn/shop/files/Sans_titre-1_86801151-1295-41a8-adf4-a87fe7ccb143.png?v=1770892187"
+              alt="OLGA"
+              width={36}
+              height={36}
+              className="foot-logo-img"
+            />
+            Olga
+          </div>
           <div className="foot-since">Depuis 1999</div>
           <p className="foot-tagline">
             Mode féminine marocaine. Des pièces pensées pour sublimer chaque femme, du quotidien à l&apos;exceptionnel.

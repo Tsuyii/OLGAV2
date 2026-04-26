@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
@@ -31,7 +32,17 @@ export function Nav() {
           <li><Link href="/lookbook" className={active('/lookbook')}>Lookbook</Link></li>
         </ul>
 
-        <Link className="nav-logo" href="/">Olga</Link>
+        <Link className="nav-logo" href="/">
+          <Image
+            src="https://www.olgadsn.com/cdn/shop/files/Sans_titre-1_86801151-1295-41a8-adf4-a87fe7ccb143.png?v=1770892187"
+            alt="OLGA"
+            width={34}
+            height={34}
+            className="nav-logo-img"
+            priority
+          />
+          <span className="nav-logo-wordmark">Olga</span>
+        </Link>
 
         <ul className="nav-right">
           <li className="nav-text-item"><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>

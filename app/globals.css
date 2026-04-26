@@ -48,8 +48,10 @@ button { cursor: pointer; font-family: var(--font-body); }
 .nav-left a:hover::after, .nav-right a:hover::after { width: 100%; }
 .nav-left a.active, .nav-right a.active { color: var(--charcoal); }
 .nav-left a.active::after, .nav-right a.active::after { width: 100%; }
-.nav-logo { text-align: center; font-family: var(--font-display); font-size: 1.7rem; font-weight: 300; letter-spacing: 0.45em; text-transform: uppercase; color: var(--charcoal); transition: opacity 0.3s; }
+.nav-logo { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 1.7rem; font-weight: 300; letter-spacing: 0.45em; text-transform: uppercase; color: var(--charcoal); transition: opacity 0.3s; }
 .nav-logo:hover { opacity: 0.7; }
+.nav-logo-img { width: 34px; height: 34px; object-fit: contain; flex-shrink: 0; }
+.nav-logo-wordmark { line-height: 1; }
 .nav-icons { display: flex; align-items: center; gap: 1.2rem; }
 .nav-icon { width: 18px; height: 18px; color: var(--mid-gray); transition: color 0.25s; cursor: pointer; }
 .nav-icon:hover { color: var(--charcoal); }
@@ -102,7 +104,8 @@ button { cursor: pointer; font-family: var(--font-body); }
 /* FOOTER */
 footer { background: var(--charcoal); padding: 4.5rem 3.5rem 2.5rem; }
 .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2rem; }
-.foot-logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.42em; text-transform: uppercase; color: var(--sand-light); display: block; margin-bottom: 0.75rem; }
+.foot-logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.42em; text-transform: uppercase; color: var(--sand-light); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.foot-logo-img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; filter: invert(1) brightness(0.82); }
 .foot-since { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra-light); margin-bottom: 1rem; }
 .foot-tagline { font-size: 0.8rem; color: rgba(196,168,130,0.4); line-height: 1.7; max-width: 210px; }
 .foot-col-title { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sand); margin-bottom: 1.4rem; }
@@ -460,7 +463,9 @@ footer { background: var(--charcoal); padding: 4.5rem 3.5rem 2.5rem; }
   /* Nav — keep icons visible, hide text links only */
   .nav { display: flex; align-items: center; padding: 0 1.25rem; position: relative; }
   .nav-left { display: none; }
-  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.4rem; letter-spacing: 0.35em; }
+  .nav-logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.4rem; letter-spacing: 0.35em; gap: 0.5rem; }
+  .nav-logo-wordmark { display: none; }
+  .nav-logo-img { width: 30px; height: 30px; }
   .nav-right { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
   .nav-text-item { display: none; }
   .nav-burger { display: flex; }
@@ -502,4 +507,24 @@ footer { background: var(--charcoal); padding: 4.5rem 3.5rem 2.5rem; }
   .btn-add-cart { justify-content: center; }
   /* Editorial strip — 2 cols max */
   .editorial-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* TOUCH DEVICES — reveal overlays that are otherwise hover-only */
+@media (hover: none) {
+  .pcard .padd { transform: translateY(0); }
+  .pcard .pwish { opacity: 1; }
+  .lookbook-cell-label { opacity: 1; background: linear-gradient(transparent, rgba(26,22,20,0.65)); }
+  .ep-tag { opacity: 1; }
+  .pcard:hover .pcard-img img { transform: none; }
+}
+
+/* EXTRA SMALL — phones under 380px */
+@media (max-width: 380px) {
+  .hero-h1 { font-size: 2.6rem; }
+  .pgrid { grid-template-columns: 1fr; }
+  .cat-item { padding: 1.25rem 1rem; }
+  .cat-img { width: 42px; height: 42px; }
+  .values { padding: 2rem 1.25rem; }
+  .insta-grid { grid-template-columns: repeat(2, 1fr); }
+  .stores-grid { padding: 0; }
 }
