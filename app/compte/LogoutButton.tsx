@@ -7,6 +7,7 @@ export function LogoutButton() {
   async function logout() {
     await createClient().auth.signOut()
     router.push('/')
+    router.refresh()
   }
   return <button className="btn btn-outline" onClick={logout}>Se déconnecter</button>
 }
