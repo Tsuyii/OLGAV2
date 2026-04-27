@@ -62,6 +62,18 @@ export interface Profile {
   updatedAt: string
 }
 
+export interface AuthProfile {
+  id: string
+  first_name: string
+  last_name: string
+  full_name: string
+  email: string
+  newsletter_opt_in: boolean
+  avatar_url: string | null
+  avatar_initials: string
+  created_at: string
+}
+
 export interface VendorProfile {
   id: string
   userId: string

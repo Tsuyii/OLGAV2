@@ -8,6 +8,7 @@ import { ChatbotFab } from '@/components/ui/ChatbotFab'
 import { CartProvider } from '@/context/CartContext'
 import { ToastProvider } from '@/context/ToastContext'
 import { GlobalReveal } from '@/components/ui/GlobalReveal'
+import { AuthProvider } from '@/context/AuthContext'
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
@@ -42,14 +43,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${display.variable} ${body.variable}`}>
       <body>
         <ToastProvider>
-          <CartProvider>
-            <GlobalReveal />
-            <AnnounceBar />
-            <Nav />
-            <main>{children}</main>
-            <Footer />
-            <ChatbotFab />
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <GlobalReveal />
+              <AnnounceBar />
+              <Nav />
+              <main>{children}</main>
+              <Footer />
+              <ChatbotFab />
+            </CartProvider>
+          </AuthProvider>
         </ToastProvider>
       </body>
     </html>

@@ -4,12 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
+import { useAuth } from '@/hooks/useAuth'
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const { totalItems } = useCart()
+  const { isLoggedIn, profile } = useAuth()
+  const firstName = profile?.first_name || 'there'
+  const initials = profile?.avatar_initials || 'ME'
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30)
@@ -45,6 +49,28 @@ export function Nav() {
         </Link>
 
         <ul className="nav-right">
+          {isLoggedIn && (
+            <li className="nav-text-item" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '0.78rem', color: 'var(--mid-gray)' }}>Hello, {firstName}</span>
+              <span
+                aria-label="User initials"
+                style={{
+                  width: 26,
+                  height: 26,
+                  borderRadius: 999,
+                  background: '#E8B4B8',
+                  color: '#1A1A1A',
+                  fontSize: '0.68rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 600,
+                }}
+              >
+                {initials}
+              </span>
+            </li>
+          )}
           <li className="nav-text-item"><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>
           <li className="nav-text-item"><Link href="/promotions">Promotions</Link></li>
           <li>
@@ -82,6 +108,7 @@ export function Nav() {
       <div className={`mobile-nav${menuOpen ? ' open' : ''}`}>
         <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)} />
         <nav className="mobile-nav-drawer">
+          {isLoggedIn ? <span style={{ fontSize: '0.85rem', color: 'var(--mid-gray)' }}>Hello, {firstName}</span> : null}
           <Link href="/">Accueil</Link>
           <Link href="/collections">Collections</Link>
           <Link href="/lookbook">Lookbook</Link>

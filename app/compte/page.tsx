@@ -1,9 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
-import type { User } from '@supabase/supabase-js'
+import { useAuth } from '@/hooks/useAuth'
 import { LogoutButton } from './LogoutButton'
 
 interface Order {
@@ -15,23 +13,12 @@ interface Order {
 }
 
 export default function ComptePage() {
-  const [user, setUser] = useState<User | null>(null)
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
+  const { user, profile } = useAuth()
 
   useEffect(() => {
     async function load() {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      
-      if (!user) {
-        router.push('/auth/login')
-        return
-      }
-      
-      setUser(user)
-
       try {
         const res = await fetch('/api/orders')
         if (res.ok) {
@@ -44,8 +31,8 @@ export default function ComptePage() {
         setLoading(false)
       }
     }
-    load()
-  }, [router])
+    if (user) load()
+  }, [user])
 
   const statusLabels: Record<string, string> = {
     pending: 'En attente',
@@ -58,7 +45,9 @@ export default function ComptePage() {
   return (
     <div style={{ maxWidth: 800, margin: '8rem auto', padding: '0 1.5rem' }}>
       <div className="sec-over">Mon espace</div>
-      <h1 className="sec-title" style={{ marginBottom: '0.5rem' }}>Bonjour, <em>{user?.email}</em></h1>
+      <h1 className="sec-title" style={{ marginBottom: '0.5rem' }}>
+        Welcome back, <em>{profile?.first_name || user?.email}</em> 🤍
+      </h1>
       <p style={{ color: 'var(--warm-gray)', fontSize: '0.85rem', marginBottom: '3rem' }}>Bienvenue dans votre espace personnel OLGA DSN.</p>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '1.5rem', marginBottom: '3rem' }}>

@@ -4,10 +4,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from '@/hooks/useCart'
 import { useToast } from '@/context/ToastContext'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function CartPage() {
   const { items, removeItem, updateQty, clearCart, totalPrice } = useCart()
   const { showToast } = useToast()
+  const { profile } = useAuth()
   const [loading, setLoading] = useState(false)
   const [syncing, setSyncing] = useState(false)
 
@@ -79,6 +81,11 @@ export default function CartPage() {
     <>
       <div className="page-hero">
         <h1 className="page-hero-h1">Votre <em>panier</em></h1>
+        {profile?.first_name ? (
+          <p style={{ marginTop: '0.8rem', color: 'var(--warm-gray)', fontSize: '0.85rem' }}>
+            Thank you, {profile.first_name}!
+          </p>
+        ) : null}
       </div>
       <div className="cart-layout">
         <div className="cart-items">
