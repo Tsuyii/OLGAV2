@@ -23,8 +23,8 @@ export function Newsletter() {
       <ScrollReveal delay={2}>
         <p className="nl-desc">Recevez en avant-première nos nouvelles collections, offres exclusives et inspirations mode directement dans votre boîte mail.</p>
         <div className="nl-row">
-          <input type="email" className="nl-input" placeholder="Votre adresse email" value={email} onChange={e => setEmail(e.target.value)} />
-          <button className="nl-btn" onClick={subscribe}>S&apos;inscrire</button>
+          <input type="email" className="nl-input" placeholder="Votre adresse email" value={email} onChange={e => setEmail(e.target.value)} data-cursor-hover />
+          <button className="nl-btn" onClick={subscribe} data-cursor-hover>S&apos;inscrire</button>
         </div>
         <p className="nl-note">En vous inscrivant, vous acceptez notre politique de confidentialité.</p>
       </ScrollReveal>

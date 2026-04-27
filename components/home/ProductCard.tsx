@@ -36,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <div ref={cardRef} className="pcard r" onClick={() => router.push(`/products/${product.slug}`)}>
+    <div ref={cardRef} className="pcard r" data-cursor-hover onClick={() => router.push(`/products/${product.slug}`)}>
       <div className="pcard-img">
         <Image
           src={product.images[0]}

@@ -15,8 +15,8 @@ export function Hero() {
           Des pièces légères, élégantes et confortables, pensées pour sublimer chaque instant de votre quotidien.
         </p>
         <div className="hero-actions">
-          <Link href="/collections" className="btn btn-dark">Découvrir la collection</Link>
-          <Link href="/lookbook" className="btn-ghost">Lookbook</Link>
+          <Link href="/collections" className="btn btn-dark" data-cursor-hover>Découvrir la collection</Link>
+          <Link href="/lookbook" className="btn-ghost" data-cursor-hover>Lookbook</Link>
         </div>
       </div>
       <div className="hero-right">

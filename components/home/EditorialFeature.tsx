@@ -10,7 +10,7 @@ export function EditorialFeature() {
           <ScrollReveal><div className="sec-over">Collection vedette</div></ScrollReveal>
           <ScrollReveal delay={1}><h2 className="ed-h2">Douceur<br /><em>méditerranée</em></h2></ScrollReveal>
           <ScrollReveal delay={2}><p className="ed-desc">Couleurs fraîches, matières légères, coupes modernes — une allure féminine et tendance en toute simplicité.</p></ScrollReveal>
-          <ScrollReveal delay={3}><Link href="/lookbook" className="ed-cta">Explorer le lookbook</Link></ScrollReveal>
+          <ScrollReveal delay={3}><Link href="/lookbook" className="ed-cta" data-cursor-hover>Explorer le lookbook</Link></ScrollReveal>
         </div>
         <ScrollReveal delay={4} className="ed-stats">
           <div className="stat"><div className="stat-n">25</div><div className="stat-l">Ans de<br />mode</div></div>
