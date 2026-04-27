@@ -36,7 +36,7 @@ export function Nav() {
           <li><Link href="/lookbook" className={active('/lookbook')}>Lookbook</Link></li>
         </ul>
 
-        <Link className="nav-logo" href="/">
+        <Link className="nav-logo" href="/" data-cursor-hover>
           <Image
             src="https://www.olgadsn.com/cdn/shop/files/Sans_titre-1_86801151-1295-41a8-adf4-a87fe7ccb143.png?v=1770892187"
             alt="OLGA"
@@ -71,10 +71,10 @@ export function Nav() {
               </span>
             </li>
           )}
-          <li className="nav-text-item"><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>
-          <li className="nav-text-item"><Link href="/promotions">Promotions</Link></li>
+          <li className="nav-text-item"><Link href="/a-propos" className={active('/a-propos')} data-cursor-hover>Notre histoire</Link></li>
+          <li className="nav-text-item"><Link href="/promotions" data-cursor-hover>Promotions</Link></li>
           <li>
-            <Link href="/compte" className="nav-icon-btn" aria-label="Mon compte">
+            <Link href="/compte" className="nav-icon-btn" aria-label="Mon compte" data-cursor-hover>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                 <circle cx="12" cy="7" r="4"/>
@@ -82,7 +82,7 @@ export function Nav() {
             </Link>
           </li>
           <li>
-            <Link href="/panier" className="nav-icon-btn" aria-label="Panier" style={{ position: 'relative' }}>
+            <Link href="/panier" className="nav-icon-btn" aria-label="Panier" style={{ position: 'relative' }} data-cursor-hover>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
                 <line x1="3" y1="6" x2="21" y2="6"/>
@@ -98,6 +98,7 @@ export function Nav() {
           onClick={() => setMenuOpen((o) => !o)}
           aria-label="Menu"
           aria-expanded={menuOpen}
+          data-cursor-hover
         >
           <span />
           <span />

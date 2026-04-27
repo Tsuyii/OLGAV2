@@ -15,7 +15,7 @@ export function CategoryStrip() {
   return (
     <div className="cats">
       {categories.map((cat, i) => (
-        <Link key={cat.label} href="/collections" className={`cat-item${i === 0 ? ' active' : ''}`}>
+        <Link key={cat.label} href="/collections" className={`cat-item${i === 0 ? ' active' : ''}`} data-cursor-hover>
           <div style={{ position: 'relative', width: 52, height: 52, flexShrink: 0 }}>
             <Image
               className="cat-img"

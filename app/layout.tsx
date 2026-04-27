@@ -9,6 +9,7 @@ import { CartProvider } from '@/context/CartContext'
 import { ToastProvider } from '@/context/ToastContext'
 import { GlobalReveal } from '@/components/ui/GlobalReveal'
 import { AuthProvider } from '@/context/AuthContext'
+import { CustomCursor } from '@/components/ui/CustomCursor'
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${display.variable} ${body.variable}`}>
       <body>
+        <CustomCursor cursorColor="#3D2E24" followerColor="#C4A882" hoverColor="#C4563A" />
         <ToastProvider>
           <AuthProvider>
             <CartProvider>
