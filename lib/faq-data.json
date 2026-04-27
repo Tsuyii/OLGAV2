@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Quels sont les horaires d'ouverture?",
+    "answer": "Notre boutique est ouverte du lundi au samedi de 10h à 19h. Le dimanche, nous sommes fermés."
+  },
+  {
+    "question": "Comment puis-je passer une commande?",
+    "answer": "Vous pouvez passer commande directement sur notre site web en ajoutant les articles à votre panier, ou nous contacter via WhatsApp au +212 600-123-456."
+  },
+  {
+    "question": "Quels sont les modes de paiement acceptés?",
+    "answer": "Nous acceptons les paiements par carte bancaire (Visa, Mastercard), PayPal, et le paiement à la livraison."
+  },
+  {
+    "question": "Quelle est la politique de retour?",
+    "answer": "Vous pouvez retourner tout article dans les 14 jours suivant l'achat, à condition qu'il soit dans son état original. Les frais de retour sont à votre charge."
+  },
+  {
+    "question": "Livrez-vous à l'international?",
+    "answer": "Oui, nous livrons dans le monde entier. Les frais de livraison varient selon la destination. Comptez 5-15 jours ouvrés pour la livraison internationale."
+  },
+  {
+    "question": "Comment puis-je contacter le service client?",
+    "answer": "Vous pouvez nous contacter par email à contact@olga.ma, par téléphone au +212 600-123-456, ou via WhatsApp."
+  },
+  {
+    "question": "Avez-vous des tailles spéciales?",
+    "answer": "Oui, nous proposons des tailles XXS à XXL. Pour les tailles spéciales ou sur mesure, contactez-nous pour une commande personnalisée."
+  },
+  {
+    "question": "Les caftans sont-ils faits à la main?",
+    "answer": "Oui, tous nos caftans sont confectionnés à la main par nos artisans au Maroc, avec des matériaux de haute qualité."
+  },
+  {
+    "question": "Comment prendre mes mesures?",
+    "answer": "Mesurez votre poitrine, taille et hanches avec un mètre de couture. Consultez notre guide des tailles sur le site pour plus de détails."
+  },
+  {
+    "question": "Proposez-vous des cartes cadeau?",
+    "answer": "Oui, nous proposons des cartes cadeau de 100 à 1000 DH. Elles sont valables un an et utilisables en boutique ou sur le site."
+  }
+]

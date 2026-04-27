@@ -1,7 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+<<<<<<< HEAD
 import { useAuth } from '@/hooks/useAuth'
+=======
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import type { User } from '@supabase/supabase-js'
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
 import { LogoutButton } from './LogoutButton'
 
 interface Order {
@@ -13,12 +19,32 @@ interface Order {
 }
 
 export default function ComptePage() {
+<<<<<<< HEAD
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const { user, profile } = useAuth()
 
   useEffect(() => {
     async function load() {
+=======
+  const [user, setUser] = useState<User | null>(null)
+  const [orders, setOrders] = useState<Order[]>([])
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    async function load() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user) {
+        router.push('/auth/login')
+        return
+      }
+      
+      setUser(user)
+
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
       try {
         const res = await fetch('/api/orders')
         if (res.ok) {
@@ -31,8 +57,13 @@ export default function ComptePage() {
         setLoading(false)
       }
     }
+<<<<<<< HEAD
     if (user) load()
   }, [user])
+=======
+    load()
+  }, [router])
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
 
   const statusLabels: Record<string, string> = {
     pending: 'En attente',
@@ -45,9 +76,13 @@ export default function ComptePage() {
   return (
     <div style={{ maxWidth: 800, margin: '8rem auto', padding: '0 1.5rem' }}>
       <div className="sec-over">Mon espace</div>
+<<<<<<< HEAD
       <h1 className="sec-title" style={{ marginBottom: '0.5rem' }}>
         Welcome back, <em>{profile?.first_name || user?.email}</em> 🤍
       </h1>
+=======
+      <h1 className="sec-title" style={{ marginBottom: '0.5rem' }}>Bonjour, <em>{user?.email}</em></h1>
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
       <p style={{ color: 'var(--warm-gray)', fontSize: '0.85rem', marginBottom: '3rem' }}>Bienvenue dans votre espace personnel OLGA DSN.</p>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '1.5rem', marginBottom: '3rem' }}>

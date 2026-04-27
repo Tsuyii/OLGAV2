@@ -10,19 +10,35 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+<<<<<<< HEAD
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@supabase/supabase-js": "^2.49.4",
     "@supabase/ssr": "^0.6.1",
+=======
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.4",
+    "next": "15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
     "stripe": "^17.5.0"
   },
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+<<<<<<< HEAD
     "typescript": "^5",
     "eslint": "^9",
     "eslint-config-next": "15.3.2"
   }
 }
+=======
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "typescript": "^5"
+  }
+}
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd

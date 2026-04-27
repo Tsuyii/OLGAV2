@@ -4,12 +4,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from '@/hooks/useCart'
 import { useToast } from '@/context/ToastContext'
+<<<<<<< HEAD
 import { useAuth } from '@/hooks/useAuth'
+=======
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
 
 export default function CartPage() {
   const { items, removeItem, updateQty, clearCart, totalPrice } = useCart()
   const { showToast } = useToast()
+<<<<<<< HEAD
   const { profile } = useAuth()
+=======
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
   const [loading, setLoading] = useState(false)
   const [syncing, setSyncing] = useState(false)
 
@@ -81,11 +87,14 @@ export default function CartPage() {
     <>
       <div className="page-hero">
         <h1 className="page-hero-h1">Votre <em>panier</em></h1>
+<<<<<<< HEAD
         {profile?.first_name ? (
           <p style={{ marginTop: '0.8rem', color: 'var(--warm-gray)', fontSize: '0.85rem' }}>
             Thank you, {profile.first_name}!
           </p>
         ) : null}
+=======
+>>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
       </div>
       <div className="cart-layout">
         <div className="cart-items">
