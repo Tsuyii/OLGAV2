@@ -4,22 +4,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/hooks/useCart'
-<<<<<<< HEAD
 import { useAuth } from '@/hooks/useAuth'
-=======
->>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const { totalItems } = useCart()
-<<<<<<< HEAD
   const { isLoggedIn, profile } = useAuth()
   const firstName = profile?.first_name || 'there'
   const initials = profile?.avatar_initials || 'ME'
-=======
->>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30)
@@ -55,7 +49,6 @@ export function Nav() {
         </Link>
 
         <ul className="nav-right">
-<<<<<<< HEAD
           {isLoggedIn && (
             <li className="nav-text-item" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontSize: '0.78rem', color: 'var(--mid-gray)' }}>Hello, {firstName}</span>
@@ -78,8 +71,6 @@ export function Nav() {
               </span>
             </li>
           )}
-=======
->>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
           <li className="nav-text-item"><Link href="/a-propos" className={active('/a-propos')}>Notre histoire</Link></li>
           <li className="nav-text-item"><Link href="/promotions">Promotions</Link></li>
           <li>
@@ -117,10 +108,7 @@ export function Nav() {
       <div className={`mobile-nav${menuOpen ? ' open' : ''}`}>
         <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)} />
         <nav className="mobile-nav-drawer">
-<<<<<<< HEAD
           {isLoggedIn ? <span style={{ fontSize: '0.85rem', color: 'var(--mid-gray)' }}>Hello, {firstName}</span> : null}
-=======
->>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
           <Link href="/">Accueil</Link>
           <Link href="/collections">Collections</Link>
           <Link href="/lookbook">Lookbook</Link>

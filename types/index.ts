@@ -62,7 +62,6 @@ export interface Profile {
   updatedAt: string
 }
 
-<<<<<<< HEAD
 export interface AuthProfile {
   id: string
   first_name: string
@@ -75,8 +74,6 @@ export interface AuthProfile {
   created_at: string
 }
 
-=======
->>>>>>> 5674addbae311b99c3360c6090232deb0fecd1fd
 export interface VendorProfile {
   id: string
   userId: string
