@@ -92,7 +92,9 @@ export default function RegisterPage() {
     }
 
     if (data.user) {
-      const { error: profileError } = await supabase.from('profiles').upsert(
+      // Best-effort upsert — may fail before email confirmation due to RLS.
+      // The DB trigger (handle_new_user) is the authoritative path for profile creation.
+      await supabase.from('profiles').upsert(
         {
           id: data.user.id,
           first_name: firstName.trim(),
@@ -104,11 +106,6 @@ export default function RegisterPage() {
         },
         { onConflict: 'id' }
       )
-      if (profileError) {
-        setError('Account created, but profile setup failed. Please contact support.')
-        setLoading(false)
-        return
-      }
     }
 
     setDone(true)

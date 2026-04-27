@@ -137,7 +137,7 @@ export default function LoginPage() {
       const updatedAttempts = failedAttempts + 1
       setFailedAttempts(updatedAttempts)
 
-      if (mapped.toLowerCase().includes('not verified')) {
+      if (mapped.toLowerCase().includes('verify') || error?.message?.toLowerCase().includes('email not confirmed')) {
         setNeedsVerification(true)
       }
       if (updatedAttempts >= 5) {

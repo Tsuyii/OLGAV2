@@ -88,6 +88,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isLoggedIn: !!user,
       isLoading,
       signOut: async () => {
+        // Clear local state immediately so UI updates before navigation
+        setUser(null)
+        setProfile(null)
         await createClient().auth.signOut()
       },
       refreshProfile,
