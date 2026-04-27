@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manteau Taupe — OLGA DSN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <style>
+    /* ---- BREADCRUMB ---- */
+    .breadcrumb {
+      padding: 1.2rem 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--warm-gray);
+      border-bottom: 1px solid var(--ivory-warm);
+    }
+    .breadcrumb a { transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--charcoal); }
+    .breadcrumb-sep { color: var(--sand-muted); font-size: 0.6rem; }
+    .breadcrumb-current { color: var(--charcoal); }
+
+    /* ---- PRODUCT LAYOUT ---- */
+    .product-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 3rem 3.5rem 5rem;
+      align-items: start;
+    }
+
+    /* ---- GALLERY ---- */
+    .gallery {
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
+      display: flex;
+      gap: 1rem;
+    }
+    .gallery-thumbs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 80px;
+      flex-shrink: 0;
+    }
+    .thumb {
+      width: 80px;
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: border-color 0.25s, opacity 0.25s;
+      opacity: 0.55;
+    }
+    .thumb.active { border-color: var(--espresso); opacity: 1; }
+    .thumb:hover { opacity: 0.9; }
+    .gallery-main {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-main-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: none;
+      transition: opacity 0.35s ease;
+    }
+    .gallery-main-img.active { display: block; }
+    .gallery-badge {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--terra);
+      color: var(--white);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+    }
+    .gallery-zoom {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: rgba(247,243,238,0.85);
+      backdrop-filter: blur(8px);
+      border: none;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .gallery-zoom:hover { background: var(--ivory); }
+    .gallery-zoom svg { width: 16px; height: 16px; color: var(--charcoal); }
+
+    /* ---- PRODUCT INFO ---- */
+    .product-info {
+      padding-left: 5rem;
+    }
+    .product-over {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 0.8rem;
+    }
+    .product-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+    .product-title em { font-style: italic; color: var(--sand); }
+    .product-subtitle {
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      margin-bottom: 1.8rem;
+    }
+    .product-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--ivory-deep);
+    }
+    .price-main {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 300;
+      color: var(--charcoal);
+    }
+    .price-old {
+      font-size: 1rem;
+      color: var(--warm-gray);
+      text-decoration: line-through;
+    }
+    .price-save {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terra);
+      background: rgba(196,86,58,0.08);
+      padding: 3px 8px;
+    }
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+    }
+    .stars { color: var(--sand); letter-spacing: 2px; }
+    .rating-count { color: var(--mid-gray); }
+
+    /* ---- COLOR ---- */
+    .product-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 0.75rem;
+    }
+    .color-swatches {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+    .swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      outline: 2px solid transparent;
+      transition: outline-color 0.2s;
+      position: relative;
+    }
+    .swatch.active { outline-color: var(--espresso); outline-offset: 3px; }
+    .swatch:hover { outline-color: var(--sand); outline-offset: 3px; }
+
+    /* ---- SIZES ---- */
+    .sizes {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    .size-btn {
+      min-width: 48px;
+      height: 48px;
+      border: 1px solid var(--ivory-deep);
+      background: transparent;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0 10px;
+    }
+    .size-btn:hover { border-color: var(--espresso); }
+    .size-btn.active { background: var(--espresso); color: var(--sand-light); border-color: var(--espresso); }
+    .size-btn.unavail { color: var(--warm-gray); opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
+    .size-guide {
+      font-size: 0.68rem;
+      color: var(--mid-gray);
+      border-bottom: 1px solid var(--mid-gray);
+      cursor: pointer;
+      width: fit-content;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .size-guide:hover { color: var(--charcoal); }
+
+    /* ---- ADD TO CART ---- */
+    .product-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .btn-add-cart {
+      flex: 1;
+      padding: 16px 28px;
+      background: var(--espresso);
+      color: var(--sand-light);
+      border: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-add-cart:hover { background: var(--charcoal); }
+    .btn-wishlist {
+      width: 54px;
+      height: 54px;
+      border: 1px solid var(--ivory-deep);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      flex-shrink: 0;
+    }
+    .btn-wishlist svg { width: 18px; height: 18px; color: var(--warm-gray); transition: color 0.25s; }
+    .btn-wishlist:hover { border-color: var(--terra); }
+    .btn-wishlist:hover svg { color: var(--terra); }
+    .btn-wishlist.liked svg { fill: var(--terra); color: var(--terra); }
+
+    /* ---- SHIPPING PILLS ---- */
+    .shipping-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 1.5rem;
+      background: var(--ivory-warm);
+      margin-bottom: 2rem;
+    }
+    .ship-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--charcoal);
+    }
+    .ship-pill svg { width: 16px; height: 16px; color: var(--sage); flex-shrink: 0; }
+
+    /* ---- ACCORDION ---- */
+    .accordion { border-top: 1px solid var(--ivory-deep); }
+    .acc-item { border-bottom: 1px solid var(--ivory-deep); }
+    .acc-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.25rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .acc-trigger:hover { color: var(--sand); }
+    .acc-icon {
+      width: 18px;
+      height: 18px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .acc-icon::before,
+    .acc-icon::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .acc-icon::before { width: 12px; height: 1px; top: 50%; left: 3px; margin-top: -0.5px; }
+    .acc-icon::after  { width: 1px; height: 12px; left: 8.5px; top: 3px; }
+    .acc-trigger[aria-expanded="true"] .acc-icon::after { transform: rotate(90deg); opacity: 0; }
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .acc-body.open { max-height: 600px; }
+    .acc-content {
+      padding: 0 0 1.5rem;
+      font-size: 0.82rem;
+      color: var(--warm-gray);
+      line-height: 1.8;
+    }
+    .acc-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .acc-content ul li::before { content: '— '; color: var(--sand); }
+
+    /* ---- RELATED PRODUCTS ---- */
+    .related {
+      padding: var(--section-pad);
+      border-top: 1px solid var(--ivory-deep);
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .prod-card { cursor: pointer; }
+    .prod-img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: var(--ivory-warm);
+      margin-bottom: 1rem;
+    }
+    .prod-img-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    .prod-card:hover .prod-img-wrap img { transform: scale(1.04); }
+    .prod-card-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--charcoal);
+      margin-bottom: 0.2rem;
+    }
+    .prod-card-cat {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 0.5rem;
+    }
+    .prod-card-price { font-size: 0.88rem; color: var(--charcoal); }
+    .prod-tag {
+      position: absolute;
+      top: 0.75rem; left: 0.75rem;
+      background: var(--espresso);
+      color: var(--sand-light);
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+    }
+    .prod-tag.sale { background: var(--terra); }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .product-wrap { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+      .product-info { padding-left: 0; margin-top: 2rem; }
+      .gallery { position: static; flex-direction: column-reverse; }
+      .gallery-thumbs { flex-direction: row; width: 100%; }
+      .thumb { width: 70px; height: 85px; }
+      .related-grid { grid-template-columns: repeat(2,1fr); }
+      .breadcrumb { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCE BAR -->
+  <div class="announce">
+    <span class="announce-track">
+      <span>Livraison offerte dès 999 Dh</span>
+      <span>·</span>
+      <span>Échange gratuit en magasin</span>
+      <span>·</span>
+      <span>Collection Printemps-Été 2026 disponible</span>
+      <span>·</span>
+      <span>Livraison offerte dès 999 Dh</span>
+      <span>·</span>
+      <span>Échange gratuit en magasin</span>
+      <span>·</span>
+      <span>Collection Printemps-Été 2026 disponible</span>
+    </span>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <ul class="nav-left">
+      <li><a href="index.html">Nouveautés</a></li>
+      <li><a href="collection.html" class="active">Collections</a></li>
+      <li><a href="lookbook.html">Lookbook</a></li>
+    </ul>
+    <a class="nav-logo" href="index.html">Olga</a>
+    <ul class="nav-right">
+      <li><a href="about.html">Notre histoire</a></li>
+      <li><a href="#">Promotions</a></li>
+    </ul>
+    <div class="nav-icons" style="display:none;">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    </div>
+    <button class="nav-burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-overlay" id="nav-overlay"></div>
+    <div class="mobile-nav-drawer">
+      <a href="index.html">Accueil</a>
+      <a href="collection.html">Collections</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="about.html">Notre histoire</a>
+      <a href="#">Promotions</a>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="index.html">Accueil</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="collection.html">Collections</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="collection.html">Manteaux</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Manteau Oversize Taupe</span>
+  </div>
+
+  <!-- PRODUCT -->
+  <div class="product-wrap">
+
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="gallery-thumbs">
+        <img class="thumb active"
+          src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-32_0819764f-b5e4-4c66-a7d8-b406cdd3c55f.jpg?v=1773329624&width=160"
+          alt="Vue 1" onclick="switchImg(0, this)">
+        <img class="thumb"
+          src="https://www.olgadsn.com/cdn/shop/files/a_28.png?v=1773411118&width=160"
+          alt="Vue 2" onclick="switchImg(1, this)">
+        <img class="thumb"
+          src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34.jpg?v=1776941720&width=160"
+          alt="Vue 3" onclick="switchImg(2, this)">
+        <img class="thumb"
+          src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34_1.jpg?v=1776945247&width=160"
+          alt="Vue 4" onclick="switchImg(3, this)">
+      </div>
+      <div class="gallery-main">
+        <img class="gallery-main-img active"
+          src="https://www.olgadsn.com/cdn/shop/files/photo_2025-12-26_09-23-32_0819764f-b5e4-4c66-a7d8-b406cdd3c55f.jpg?v=1773329624&width=780"
+          alt="Manteau Oversize Taupe — vue 1" id="main-img-0">
+        <img class="gallery-main-img"
+          src="https://www.olgadsn.com/cdn/shop/files/a_28.png?v=1773411118&width=780"
+          alt="Manteau Oversize Taupe — vue 2" id="main-img-1">
+        <img class="gallery-main-img"
+          src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34.jpg?v=1776941720&width=780"
+          alt="Manteau Oversize Taupe — vue 3" id="main-img-2">
+        <img class="gallery-main-img"
+          src="https://www.olgadsn.com/cdn/shop/files/WhatsApp_Image_2026-04-23_at_00.40.34_1.jpg?v=1776945247&width=780"
+          alt="Manteau Oversize Taupe — vue 4" id="main-img-3">
+        <div class="gallery-badge">Nouveau</div>
+        <button class="gallery-zoom" aria-label="Agrandir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info">
+      <div class="product-over">Collection Automne — Hiver 2026</div>
+      <h1 class="product-title">Manteau Oversize<br><em>Taupe Camel</em></h1>
+      <p class="product-subtitle">Coupe ample structurée · Laine mélangée Marocaine</p>
+
+      <div class="product-rating">
+        <span class="stars">★★★★★</span>
+        <span>4.9</span>
+        <span class="rating-count">(34 avis)</span>
+      </div>
+
+      <div class="product-price-row">
+        <span class="price-main">1&thinsp;490 Dh</span>
+        <span class="price-old">1&thinsp;890 Dh</span>
+        <span class="price-save">−21%</span>
+      </div>
+
+      <!-- COLOR -->
+      <div class="product-label">Couleur : <strong style="color:var(--charcoal)">Taupe Camel</strong></div>
+      <div class="color-swatches" style="margin-bottom:2rem">
+        <div class="swatch active" style="background:#C4A882;" title="Taupe Camel"></div>
+        <div class="swatch" style="background:#3D2E24;" title="Espresso"></div>
+        <div class="swatch" style="background:#8A9B8E;" title="Sauge"></div>
+        <div class="swatch" style="background:#1A1614;" title="Charbon"></div>
+      </div>
+
+      <!-- SIZE -->
+      <div class="product-label">Taille</div>
+      <div class="sizes">
+        <button class="size-btn unavail">XS</button>
+        <button class="size-btn" onclick="selectSize(this)">S</button>
+        <button class="size-btn active" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+      </div>
+      <span class="size-guide">Guide des tailles</span>
+
+      <!-- ACTIONS -->
+      <div class="product-actions">
+        <button class="btn-add-cart" onclick="addToCart()">Ajouter au panier</button>
+        <button class="btn-wishlist" id="wish-btn" onclick="toggleWish(this)" aria-label="Liste de souhaits">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+
+      <!-- SHIPPING -->
+      <div class="shipping-pills">
+        <div class="ship-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <span>Livraison offerte dès 999 Dh — <strong>2–4 jours ouvrés</strong></span>
+        </div>
+        <div class="ship-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <span>Échange gratuit en boutique sous 14 jours</span>
+        </div>
+        <div class="ship-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Paiement 100% sécurisé — CMI Maroc</span>
+        </div>
+      </div>
+
+      <!-- ACCORDION -->
+      <div class="accordion">
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="true" onclick="toggleAcc(this)">
+            Description
+            <span class="acc-icon"></span>
+          </button>
+          <div class="acc-body open">
+            <div class="acc-content">
+              <p>Un manteau oversize au tombé parfait, conçu pour sublimer la silhouette tout en offrant un confort enveloppant. La coupe ample structurée s'adapte à toutes les morphologies et se porte aussi bien sur une tenue décontractée qu'en version habillée.</p>
+              <br>
+              <p>Confectionné en laine mélangée d'origine marocaine, ce manteau incarne l'élégance discrète qui est la signature OLGA depuis 1999.</p>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false" onclick="toggleAcc(this)">
+            Composition & Matières
+            <span class="acc-icon"></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-content">
+              <ul>
+                <li>70% Laine mélangée Marocaine</li>
+                <li>20% Polyester recyclé</li>
+                <li>10% Cachemire</li>
+                <li>Doublure : 100% Soie naturelle</li>
+                <li>Boutons : résine naturelle</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false" onclick="toggleAcc(this)">
+            Entretien
+            <span class="acc-icon"></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-content">
+              <ul>
+                <li>Nettoyage à sec recommandé</li>
+                <li>Lavage à la main à 30°C si nécessaire</li>
+                <li>Ne pas essorer</li>
+                <li>Séchage à plat à l'ombre</li>
+                <li>Repasser à basse température sous un tissu</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false" onclick="toggleAcc(this)">
+            Livraison & Retours
+            <span class="acc-icon"></span>
+          </button>
+          <div class="acc-body">
+            <div class="acc-content">
+              <p>Livraison standard : 2–4 jours ouvrés. Livraison express disponible (1–2 jours). Échange ou remboursement sous 14 jours en boutique ou par courrier. Les articles doivent être retournés avec leurs étiquettes d'origine, non portés.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED PRODUCTS -->
+  <section class="related">
+    <div class="sec-head r">
+      <div>
+        <div class="sec-over">Vous aimerez aussi</div>
+        <h2 class="sec-title">Pièces <em>assorties</em></h2>
+      </div>
+      <a href="collection.html" class="sec-link">Voir tout</a>
+    </div>
+    <div class="related-grid">
+      <a href="product.html" class="prod-card r d1">
+        <div class="prod-img-wrap">
+          <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_14_c6ced9d3-24f8-4e97-8a2e-f09cde789bb7.png?v=1761642468&width=480" alt="Sac Cuir Tressé">
+          <span class="prod-tag">Nouveau</span>
+        </div>
+        <div class="prod-card-cat">Maroquinerie</div>
+        <div class="prod-card-name">Sac Cuir Tressé Camel</div>
+        <div class="prod-card-price">890 Dh</div>
+      </a>
+      <a href="product.html" class="prod-card r d2">
+        <div class="prod-img-wrap">
+          <img src="https://www.olgadsn.com/cdn/shop/files/IMG_7234.jpg?v=1730126211&width=480" alt="Châle Laine Naturelle">
+        </div>
+        <div class="prod-card-cat">Accessoires</div>
+        <div class="prod-card-name">Châle Laine Naturelle</div>
+        <div class="prod-card-price">590 Dh</div>
+      </a>
+      <a href="product.html" class="prod-card r d3">
+        <div class="prod-img-wrap">
+          <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_16_6dccc60d-59d2-4e62-9a8d-e9b15aa0a023.png?v=1761642435&width=480" alt="Sac Bandoulière Soirée">
+          <span class="prod-tag sale">Promo</span>
+        </div>
+        <div class="prod-card-cat">Maroquinerie</div>
+        <div class="prod-card-name">Sac Bandoulière Soirée</div>
+        <div class="prod-card-price">1&thinsp;190 Dh</div>
+      </a>
+      <a href="product.html" class="prod-card r d4">
+        <div class="prod-img-wrap">
+          <img src="https://www.olgadsn.com/cdn/shop/files/Design_sans_titre_2_1cdab00e-9f51-4d4a-8470-ef8dcbdf9ca9.png?v=1771504793&width=480" alt="Sneaker Cuir Blanc">
+        </div>
+        <div class="prod-card-cat">Chaussures</div>
+        <div class="prod-card-name">Sneaker Cuir Blanc</div>
+        <div class="prod-card-price">990 Dh</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <span class="foot-logo">Olga</span>
+        <div class="foot-since">Depuis 1999</div>
+        <p class="foot-tagline">Mode féminine marocaine. Des pièces pensées pour sublimer chaque femme, du quotidien à l'exceptionnel.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">Collections</div>
+        <ul class="foot-links">
+          <li><a href="collection.html">Prêt-à-porter</a></li>
+          <li><a href="collection.html">Chaussures</a></li>
+          <li><a href="collection.html">Sacs &amp; Maroquinerie</a></li>
+          <li><a href="collection.html">Accessoires</a></li>
+          <li><a href="#">Promotions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">Informations</div>
+        <ul class="foot-links">
+          <li><a href="about.html">Notre histoire</a></li>
+          <li><a href="#">Livraison &amp; Retours</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Conditions d'utilisation</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">Nous suivre</div>
+        <ul class="foot-links">
+          <li><a href="#">Instagram @olgadsn</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Nos boutiques</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2026 OLGA DSN MAROC. Tous droits réservés.</span>
+      <div class="foot-legal">
+        <a href="#">Confidentialité</a>
+        <a href="#">CGV</a>
+        <a href="#">Remboursement</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">✓ Ajouté au panier</div>
+
+  <script>
+    // Scroll reveal
+    const revEls = document.querySelectorAll('.r');
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.07 });
+    revEls.forEach(el => revObs.observe(el));
+
+    // Sticky nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30), { passive: true });
+
+    // Mobile nav
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const overlay = document.getElementById('nav-overlay');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    overlay.addEventListener('click', () => {
+      burger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+
+    // Gallery switcher
+    function switchImg(idx, thumbEl) {
+      document.querySelectorAll('.gallery-main-img').forEach((img, i) => {
+        img.classList.toggle('active', i === idx);
+      });
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      thumbEl.classList.add('active');
+    }
+
+    // Size selector
+    function selectSize(btn) {
+      if (btn.classList.contains('unavail')) return;
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Wishlist toggle
+    function toggleWish(btn) {
+      btn.classList.toggle('liked');
+    }
+
+    // Accordion
+    function toggleAcc(trigger) {
+      const body = trigger.nextElementSibling;
+      const open = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', String(!open));
+      body.classList.toggle('open', !open);
+    }
+
+    // Add to cart
+    function addToCart() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
