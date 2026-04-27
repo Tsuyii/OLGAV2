@@ -1,4 +1,5 @@
 'use client'
+import { Suspense } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -10,7 +11,7 @@ import { AuthLayout } from '@/components/auth/AuthLayout'
 import { FloatingInput } from '@/components/auth/FloatingInput'
 import styles from '../auth.module.css'
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -137,7 +138,7 @@ export default function LoginPage() {
       const updatedAttempts = failedAttempts + 1
       setFailedAttempts(updatedAttempts)
 
-      if (mapped.toLowerCase().includes('not verified')) {
+      if (mapped.toLowerCase().includes('verify') || error?.message?.toLowerCase().includes('email not confirmed')) {
         setNeedsVerification(true)
       }
       if (updatedAttempts >= 5) {
@@ -238,5 +239,13 @@ export default function LoginPage() {
         <Link href="/auth/reset-password">Forgot password?</Link>
       </p>
     </AuthLayout>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }
